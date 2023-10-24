@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $row = $result->fetch_assoc();
             if (password_verify($senha, $row['senha'])) {
                 session_start();
-                $_SESSION['usuario'] = $email;
+                $_SESSION['user_id'] = $row['id'];
                 echo json_encode(array('status' => 'sucesso'));
                 exit();
             } else {

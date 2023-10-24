@@ -30,13 +30,13 @@ require_once 'script.js';
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Meu Formulário</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Novo Usuário</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="cadastroForm" action="cadastro.php" method="POST">
+                    <form id="cadastroUserForm" action="cadastro-user.php" method="POST">
                         <!-- Campo de Nome -->
                         <div class="form-group">
                             <label for="nome">Nome</label>
@@ -100,12 +100,12 @@ require_once 'script.js';
             });
         });
         $(document).ready(function () {
-            $('#cadastroForm').submit(function (event) {
+            $('#cadastroUserForm').submit(function (event) {
                 event.preventDefault();
                 $.ajax({
-                    type: 'POST',
-                    url: 'cadastro.php',
-                    data: $('#cadastroForm').serialize(),
+                    type: 'post',
+                    url: 'cadastro-user.php',
+                    data: $('#cadastroUserForm').serialize(),
                     dataType: 'json',
                     success: function (data) {
                         if (data.status === 'sucesso') {
