@@ -14,17 +14,15 @@ require_once 'script.js';
     <div class="meu_form">
         <form id="loginForm" action="auth.php" method="post" class="wrapper">
             <label for="email">Email:</label><br>
-            <input class="form-control" type="email" name="email" id="email" value="jordan@gmail.com" required><br>
+            <input class="form-control" type="email" name="email" id="email" required autofocus><br>
             <label for="senha">Senha:</label><br>
-            <input class="form-control" type="password" name="senha" id="senha" required autofocus><br>
+            <input class="form-control" type="password" name="senha" id="senha" required><br>
             <input type="submit" value="Login" class="btn btn-primary"><br><br>
         </form>
         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#meuModal">
             Primeiro Acesso
         </button>
     </div>
-
-    <!-- Modal -->
     <div class="modal fade" id="meuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -36,26 +34,21 @@ require_once 'script.js';
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="cadastroUserForm" action="cadastro-user.php" method="POST">
-                        <!-- Campo de Nome -->
+                    <form id="cadastroUserForm" action="gerenciar-usuario.php" method="post">
                         <div class="form-group">
                             <label for="nome">Nome</label>
                             <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome"
-                                   required>
+                                   required autofocus>
                         </div>
-                        <!-- Campo de E-mail -->
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Seu e-mail"
-                                   value="jordan@gmail.com" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Seu e-mail" required>
                         </div>
-                        <!-- Campo de Senha -->
                         <div class="form-group">
                             <label for="senha">Senha</label>
                             <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha"
                                    required>
                         </div>
-                        <!-- Botão de envio -->
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </form>
                 </div>
@@ -63,14 +56,6 @@ require_once 'script.js';
         </div>
     </div>
     <script>
-        // toastr.options = {
-        //     progressBar: true,
-        //     timeOut: 3000,
-        //     onHidden: function() {
-        //         // Redirecionar para outra página após a notificação desaparecer
-        //         window.location.href = 'home.php';
-        //     }
-        // }
         toastr.options = {
             progressBar: true,
             timeOut: 2000
