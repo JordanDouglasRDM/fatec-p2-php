@@ -1,24 +1,25 @@
 <?php
 require_once 'repository.php';
-session_start();
+require_once 'header.php';
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit();
+}
+
 $lista_id = filter_input(INPUT_POST, 'lista_id', FILTER_VALIDATE_INT);
 
-require_once 'header.php';
-require_once 'repository.php';
 $data = getAllItemByListId($lista_id);
 $dataItemPendente = getAllItemWithValidation($lista_id, 'finalizado', '0', 'created_at', 'desc');
 $dataItemConcluido = getAllItemWithValidation($lista_id, 'finalizado', '1', 'updated_at', 'desc');
 ?>
-    <!-- Formulário para adicionar item -->
 <div class="container col-3" style="margin-bottom: 50px; margin-top: 100px">
     <form class="wrapper" id="cadastroItem" action="gerenciar-itens.php" method="post">
         <label for="nome" style="font-size: 30px;">Novo item:</label>
-        <input type="text" class="form-control" name="nome" id="nome" placeholder="Adicionar novo item"
+        <input type="text" class="form-control" name="nome" id="nome" placeholder="Descrição do item"
                required><br>
         <input type="hidden" name="lista_id" value="<?= $lista_id ?>"><br>
         <input type="hidden" name="opcao" value="adicionar">
-        <a class="btn btn-secondary" href="home.php">Home</a>
-        <button type="submit" class="btn btn-primary">Novo Item</button>
+        <button type="submit" class="btn btn-success">Novo Item</button>
     </form>
 </div>
 <?php if ($data !== null): ?>

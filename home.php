@@ -1,32 +1,42 @@
 <?php
 require_once 'header.php';
 require_once 'repository.php';
-session_start();
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit();
 }
-
 $data = getAllListByIdUser($_SESSION['user_id']);
+
 ?>
 
-<style>
-    .containerCards {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-    }
-</style>
-
-<div class="alert alert-success">
-    Logado
-</div>
-
-<!-- Exibe todas as listas do meu usuário. -->
-<?php if (!$data == null): ?>
+    <style>
+        html {
+            overflow-y: hidden;
+        }
+        .buttonNovaLista {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+        }
+        .max-height {
+            max-height: 700px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .containerCards {
+            margin-top: 145px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+        }
+    </style>
+    <br><br><br>
+<?php if ($data !== null): ?>
     <?php foreach ($data as $row): ?>
         <div class="modal fade" id="itensLista<?= $row['id']; ?>" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -47,78 +57,174 @@ $data = getAllListByIdUser($_SESSION['user_id']);
     <?php endforeach; ?>
 <?php endif; ?>
 
-<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#itensLista">
-    Nova lista
-</button>
-<a href="logout.php" class="btn btn-danger">Logout</a>
-<br><br>
-<div class="containerCards">
-    <?php if (!$data == null): ?>
-        <div class="row">
-            <?php foreach ($data as $row): ?>
-                <div class="col-sm-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $row['titulo']; ?></h5>
-                            <p class="card-text">Criado em: <?= $row['created_at']; ?></p>
-                            <form action="dash-itens.php" method="post">
-                                <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
-                                <input type="submit" class="btn btn-primary" value="View">
-                            </form>
+    <button type="button" class="btn btn-outline-success buttonNovaLista col-1" data-toggle="modal"
+            data-target="#itensLista">
+        Nova lista
+    </button>
+    <br><br>
+    <div class="containerCards max-height">
+        <?php if (!$data == null): ?>
+            <div class="row">
+                <?php foreach ($data as $row): ?>
+                    <?php
+                    $timestamp = strtotime($row['created_at']);
+                    $row['created_at'] = date("d/m/Y - H:i", $timestamp);
+                    $dataCount = countItensByIdList($row['id']);
+                    ?>
+                    <div class="col-sm-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $row['titulo']; ?></h5>
+                                <p class="card-text">Concluido/Pendente (<?= $dataCount[0]['concluido'];?>/<?= $dataCount[0]['pendente'];?>)</p>
+                                <div class="container d-flex">
+                                    <form class="mr-2" action="dash-itens.php" method="post">
+                                        <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
+                                        <input type="submit" class="btn btn-primary" value="Ver itens">
+                                    </form>
+                                    <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#edit-list-<?= $row['id']; ?>">
+                                        Edit
+                                    </button>
+                                    <form action="gerenciar-lista.php" method="POST">
+                                        <input type="hidden" name="opcao" value="removerLista">
+                                        <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
+                                        <button type="submit" id="remove-lista-<?= $row['id']; ?>" class="btn btn-outline-danger">X</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <p class="card-footer text-muted">Criado em: <?= $row['created_at']; ?></p>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
-</div>
-
-<div class="modal fade" id="itensLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Adicionar Nova Lista</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <?php endforeach; ?>
             </div>
-            <div class="modal-body">
-                <form id="cadastroLista" action="gerenciar-lista.php" method="POST">
-                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título da lista"
-                           required>
-                    <br><br>
-                    <button type="submit" class="btn btn-info">Salvar</button>
-                </form>
+        <?php endif; ?>
+    </div>
+    <div class="modal fade" id="itensLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Nova Lista</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="cadastroLista" action="gerenciar-lista.php" method="POST">
+                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título da lista"
+                               required>
+                        <input type="hidden" name="opcao" value="novaLista">
+                        <br><br>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-        $('#cadastroLista').submit(function (event) {
-            event.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: 'gerenciar-lista.php',
-                data: $('#cadastroLista').serialize(),
-                dataType: 'json',
-                success: function (data) {
-                    if (data.status === 'sucesso') {
-                        location.reload(); // Recarrega a página
-                    } else {
-                        toastr.options = {
-                            progressBar: true,
-                            timeOut: 2000
-                        };
-                        toastr.error('Erro<br>' + data.status);
+<?php if (!$data == null): ?>
+    <?php foreach ($data as $row): ?>
+        <div class="modal fade" id="edit-list-<?= $row['id']; ?>" tabindex="-1" role="dialog"
+             aria-labelledby="editListModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editListModalLabel">Editar título da lista</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editaLista-<?= $row['id']; ?>" action="" method="POST">
+                            <input type="text" class="form-control" id="titulo" name="titulo"
+                                   value="<?= $row['titulo']; ?>">
+                            <br><br>
+                            <input type="hidden" name="opcao" value="editaTitulo">
+                            <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('#editaLista-<?= $row['id']; ?>').submit(function (event) {
+                    event.preventDefault();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'gerenciar-lista.php',
+                        data: $('#editaLista-<?= $row['id']; ?>').serialize(),
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.status === 'sucesso') {
+                                toastr.options = {
+                                    progressBar: true,
+                                    timeOut: 1500
+                                };
+                                toastr.success('Sucesso<br>Lista alterada com sucesso');
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1500);
+                            } else {
+                                toastr.options = {
+                                    progressBar: true,
+                                    timeOut: 2000
+                                };
+                                toastr.error('Erro<br>' + data.status);
+                            }
+                        },
+                        error: function () {
+                            toastr.error('Erro<br>Erro interno do servidor, tente novamente mais tarde.');
+                        }
+                    });
+                });
+            });
+            document.getElementById("remove-lista-<?= $row['id']; ?>").addEventListener("click", (event) => {
+                event.preventDefault();
+                Swal.fire({
+                    title: "Tem certeza?",
+                    text: "Você está prestes a excluir essa lista",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sim, excluir!",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        event.target.form.submit();
                     }
-                },
-                error: function () {
-                    toastr.error('Erro<br>Erro interno do servidor, tente novamente mais tarde.');
-                }
+                });
+            });
+        </script>
+    <?php endforeach; ?>
+<?php endif; ?>
+    <script>
+
+        $(document).ready(function () {
+            $('#cadastroLista').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'gerenciar-lista.php',
+                    data: $('#cadastroLista').serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 'sucesso') {
+                            location.reload();
+                        } else {
+                            toastr.options = {
+                                progressBar: true,
+                                timeOut: 2000
+                            };
+                            toastr.error('Erro<br>' + data.status);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Erro<br>Erro interno do servidor, tente novamente mais tarde.');
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 <?php require_once 'footer.php'; ?>

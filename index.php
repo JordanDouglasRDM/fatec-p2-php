@@ -1,6 +1,5 @@
 <?php
 require_once 'header.php';
-require_once 'script.js';
 ?>
     <style>
         .meu_form {
@@ -12,11 +11,12 @@ require_once 'script.js';
         }
     </style>
     <div class="meu_form">
-        <form id="loginForm" action="auth.php" method="post" class="wrapper">
+        <form id="loginForm" action="gerenciar-usuario.php" method="post" class="wrapper">
             <label for="email">Email:</label><br>
             <input class="form-control" type="email" name="email" id="email" required autofocus><br>
             <label for="senha">Senha:</label><br>
             <input class="form-control" type="password" name="senha" id="senha" required><br>
+            <input type="hidden" name="opcao" value="autenticarUsuario">
             <input type="submit" value="Login" class="btn btn-primary"><br><br>
         </form>
         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#meuModal">
@@ -49,6 +49,7 @@ require_once 'script.js';
                             <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha"
                                    required>
                         </div>
+                        <input type="hidden" name="opcao" value="adicionarUsuario">
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </form>
                 </div>
@@ -64,8 +65,8 @@ require_once 'script.js';
             $('#loginForm').submit(function (event) {
                 event.preventDefault();
                 $.ajax({
-                    type: 'POST',
-                    url: 'auth.php',
+                    type: 'post',
+                    url: 'gerenciar-usuario.php',
                     data: $('#loginForm').serialize(),
                     dataType: 'json',
                     success: function (data) {
@@ -89,7 +90,7 @@ require_once 'script.js';
                 event.preventDefault();
                 $.ajax({
                     type: 'post',
-                    url: 'cadastro-user.php',
+                    url: 'gerenciar-usuario.php',
                     data: $('#cadastroUserForm').serialize(),
                     dataType: 'json',
                     success: function (data) {
