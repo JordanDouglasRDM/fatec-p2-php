@@ -36,26 +36,6 @@ $data = getAllListByIdUser($_SESSION['user_id']);
         }
     </style>
     <br><br><br>
-<?php if ($data !== null): ?>
-    <?php foreach ($data as $row): ?>
-        <div class="modal fade" id="itensLista<?= $row['id']; ?>" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"><?= $row['titulo']; ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php endforeach; ?>
-<?php endif; ?>
 
     <button type="button" class="btn btn-outline-success buttonNovaLista col-1" data-toggle="modal"
             data-target="#itensLista">
@@ -63,7 +43,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
     </button>
     <br><br>
     <div class="containerCards max-height">
-        <?php if (!$data == null): ?>
+        <?php if ($data !== null): ?>
             <div class="row">
                 <?php foreach ($data as $row): ?>
                     <?php
@@ -75,10 +55,11 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $row['titulo']; ?></h5>
-                                <p class="card-text">Concluido/Pendente (<?= $dataCount[0]['concluido'];?>/<?= $dataCount[0]['pendente'];?>)</p>
+                                <p class="card-text">Pendente/Concluido (<?= $dataCount[0]['pendente'];?>/<?= $dataCount[0]['concluido'];?>)</p>
                                 <div class="container d-flex">
                                     <form class="mr-2" action="dash-itens.php" method="post">
                                         <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
+                                        <input type="hidden" name="titulo" value="<?= $row['titulo']; ?>">
                                         <input type="submit" class="btn btn-primary" value="Ver itens">
                                     </form>
                                     <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#edit-list-<?= $row['id']; ?>">

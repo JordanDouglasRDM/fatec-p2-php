@@ -93,7 +93,7 @@ function addItem(array $data)
 {
     global $conn;
     $valorPadrao = 0;
-    $query = 'INSERT INTO itens (nome, finalizado, lista_id) VALUES (?,?,?);';
+    $query = 'INSERT INTO itens (nome, status, lista_id) VALUES (?,?,?);';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('sii', $data['nome'], $valorPadrao, $data['lista_id']);
     $result = $stmt->execute();
@@ -103,7 +103,7 @@ function addItem(array $data)
 function getAllItemByListId(int $lista_id)
 {
     global $conn;
-    $query = 'SELECT * FROM itens WHERE lista_id = ? ORDER BY finalizado DESC';
+    $query = 'SELECT * FROM itens WHERE lista_id = ? ORDER BY status DESC';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $lista_id);
     $stmt->execute();
@@ -137,7 +137,7 @@ function getAllItemWithValidation(int $lista_id, string $field, string $valor, s
 function tornarConcluidoItem(int $item_id)
 {
     global $conn;
-    $query = 'UPDATE itens SET finalizado = 1 WHERE id = ?';
+    $query = 'UPDATE itens SET status = 1 WHERE id = ?';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i',$item_id);
     $result = $stmt->execute();
@@ -147,7 +147,7 @@ function tornarConcluidoItem(int $item_id)
 function tornarPendenteItem(int $item_id)
 {
     global $conn;
-    $query = 'UPDATE itens SET finalizado = 0 WHERE id = ?';
+    $query = 'UPDATE itens SET status = 0 WHERE id = ?';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i',$item_id);
     $result = $stmt->execute();
@@ -196,19 +196,18 @@ function deleteListById(int $lista_id)
     }
     return null;
 }
-function getAllListByIdUserCustom(int $user_id)
+function countItensByIdList(int $lista_id)
 {
     global $conn;
     $query = "
-                select l.titulo, l.created_at, count(i.lista_id) as 'qtde_itens', l.id
-                from itens i
-                inner join listas l on i.lista_id = l.id
-                where l.user_id = ?
-                group by i.lista_id;
+                SELECT
+                COUNT(CASE WHEN status = 0 THEN 1 END) AS 'pendente',
+                COUNT(CASE WHEN status = 1 THEN 1 END) AS 'concluido'
+                FROM itens where lista_id = ?;
     ";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('i', $user_id);
+    $stmt->bind_param('i', $lista_id);
     $stmt->execute();
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
@@ -220,22 +219,22 @@ function getAllListByIdUserCustom(int $user_id)
         return null;
     }
 }
-function countItensByIdList(int $lista_id)
+function getUserById(int $id)
 {
     global $conn;
-    $query = "
-                SELECT
-                COUNT(CASE WHEN finalizado = 0 THEN 1 END) AS 'pendente',
-                COUNT(CASE WHEN finalizado = 1 THEN 1 END) AS 'concluido'
-                FROM itens where lista_id = ?;
-    ";
-
+    $query = 'SELECT id, nome, email FROM users WHERE id = ?;';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('i', $lista_id);
+    $stmt->bind_param('i', $id);
     $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $data = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $nome, $email);
+        $stmt->fetch();
+        $data = [
+            'id' => $id,
+            'nome' => $nome,
+            'email' => $email
+        ];
         $stmt->close();
         return $data;
     } else {

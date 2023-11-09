@@ -9,12 +9,24 @@ if (!isset($_SESSION['user_id'])) {
 $lista_id = filter_input(INPUT_POST, 'lista_id', FILTER_VALIDATE_INT);
 
 $data = getAllItemByListId($lista_id);
-$dataItemPendente = getAllItemWithValidation($lista_id, 'finalizado', '0', 'created_at', 'desc');
-$dataItemConcluido = getAllItemWithValidation($lista_id, 'finalizado', '1', 'updated_at', 'desc');
+$dataItemPendente = getAllItemWithValidation($lista_id, 'status', '0', 'created_at', 'desc');
+$dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated_at', 'desc');
 ?>
-<div class="container col-3" style="margin-bottom: 50px; margin-top: 100px">
+    <style>
+        .tituloLista {
+            margin-top: 50px;
+            font-size: 30px;
+            margin-left: 40%;
+        }
+    </style>
+<div class="tituloLista">
+    <?php
+        echo $_POST['titulo'];
+    ?>
+</div>
+<div class="container col-3" style="margin-bottom: 50px; margin-top: 10px">
     <form class="wrapper" id="cadastroItem" action="gerenciar-itens.php" method="post">
-        <label for="nome" style="font-size: 30px;">Novo item:</label>
+        <label for="nome" style="font-size: 20px;">Novo item:</label>
         <input type="text" class="form-control" name="nome" id="nome" placeholder="Descrição do item"
                required><br>
         <input type="hidden" name="lista_id" value="<?= $lista_id ?>"><br>

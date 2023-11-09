@@ -1,5 +1,5 @@
 <?php
-require_once 'repository.php';
+require_once 'repository.php'; // camade de serviço que trata banco de dados
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $opcao = filter_input(INPUT_POST, 'opcao');
     if ($opcao == 'adicionarUsuario') {

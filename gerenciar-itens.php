@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nome = filter_input(INPUT_POST, 'nome');
             $lista_id = filter_input(INPUT_POST, 'lista_id', FILTER_VALIDATE_INT);
 
-            if ($nome !== null && $lista_id !== null) {
+            if ($nome !== null && $lista_id !== null && !empty($nome)) {
                 $itemData = [
                     'nome' => $nome,
                     'lista_id' => $lista_id

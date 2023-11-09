@@ -16,26 +16,5 @@
 </head>
 <body>
     <?php
-    session_start();
-    if (isset($_SESSION['user_id'])) {
-      echo '
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Gerenciador de Listas</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" style="width: 100px" href=""></a>
-      <a class="nav-item nav-link active" href="home.php">Home <span class="sr-only">(current)</span></a>
-      
-    </div>
-  </div>
-    <form class="form-inline">
-    <a href="logout.php" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</a>
-  </form>
-</nav>
-      
-      ';
-    }
+    require_once 'navbar.php';
     ?>
