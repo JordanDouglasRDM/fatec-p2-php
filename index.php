@@ -1,32 +1,27 @@
 <?php
 require_once 'header.php';
 ?>
-    <style>
-        .meu_form {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50%;
-        }
-    </style>
-    <div class="meu_form">
-        <form id="loginForm" action="gerenciar-usuario.php" method="post" class="wrapper">
-            <label for="email">Email:</label><br>
+    <link rel="stylesheet" href="css/style-index.css">
+    <div class="container">
+        <form id="loginForm" action="gerenciar-usuario.php" method="post" class="">
+            <h3>Tasks and Appointments</h3>
+            <label for="email" class="email">Email:</label><br>
             <input class="form-control" type="email" name="email" id="email" required autofocus><br>
             <label for="senha">Senha:</label><br>
             <input class="form-control" type="password" name="senha" id="senha" required><br>
             <input type="hidden" name="opcao" value="autenticarUsuario">
-            <input type="submit" value="Login" class="btn btn-primary"><br><br>
+            <input type="submit" value="Entrar" class="btn btn-primary button-login"><br><br>
         </form>
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#meuModal">
-            Primeiro Acesso
-        </button>
+        <p>Ainda não possui uma conta ? <a href="" data-toggle="modal" data-target="#meuModal" class="register">Clique aqui.</a></p>
+        <!--<button type="button" class="btn btn-secondary" >
+            <a href=""></a>
+        </button>-->
     </div>
+    
     <div class="modal fade" id="meuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content modal-container">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Adicionar Novo Usuário</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
@@ -50,7 +45,7 @@ require_once 'header.php';
                                    required>
                         </div>
                         <input type="hidden" name="opcao" value="adicionarUsuario">
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button type="submit" class="btn btn-primary button-register">Cadastrar</button>
                     </form>
                 </div>
             </div>

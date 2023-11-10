@@ -1,0 +1,78 @@
+.container {
+position: absolute;
+transform: translate(-50%, -50%);
+margin-top: 50vh;
+margin-left: 50vw;
+width: 30vw;
+border-radius: 0.75rem;
+background-color: #427D9D;
+color: #DDF2FD;
+padding: 5vh 5vw;
+}
+.button-login {
+    background-color: #DDF2FD; /* Green */
+    border: none;
+    color: #164863;
+    margin-left: 6vw;
+    margin-top: 3vh;
+    padding: 1vh 3vw;
+    font-weight: bold;
+}
+
+.button-login:hover {
+    background-color: #164863;
+    color: #DDF2FD;
+}
+p {
+    font-size: 1vw;
+    margin-top: 5vh;
+    font-weight: bold;
+}
+
+.register {
+    color: #164863;
+}
+
+.register:hover {
+    color: #DDF2FD;
+}
+
+h3 {
+    margin-left: 0.5vw;
+}
+.email {
+    margin-top: 6vh;
+}
+label {
+    font-weight: bold;
+}
+
+input {
+    color: #164863;
+}
+
+.modal-container {
+margin-top: 1vh;
+margin-left: -9vw;
+width: 50vw;
+border-radius: 0.75rem;
+background-color: #427D9D;;
+color: #DDF2FD;
+padding: 5vh 5vw;
+position: relative;
+}
+
+.button-register {
+    background-color: #164863;
+    border: none;
+    color: #DDF2FD;
+    margin-left: 12vw;
+    margin-top: 3vh;
+    padding: 1vh 5vw;
+    font-weight: bold;
+}
+
+.button-register:hover {
+    background-color: #DDF2FD;
+    color: #164863;
+}
