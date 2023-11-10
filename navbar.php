@@ -20,6 +20,8 @@ if (isset($_SESSION['user_id'])) {
         <div class="navbar-nav">
             <a class="nav-item nav-link" style="width: 100px" href=""></a>
             <a class="nav-item nav-link active" href="home.php">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="dash-listas.php">Anotações</a>
+            <a class="nav-item nav-link" href="dash-compromissos.php">Compromissos</a>
         </div>
     </div>
     <p class="meuNome">Olá, ' . $dataUser['nome'] . '</p>

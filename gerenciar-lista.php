@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $lista_id = filter_input(INPUT_POST, 'lista_id', FILTER_VALIDATE_INT);
             $result = deleteListById($lista_id);
             if ($result) {
-                header('Location: home.php');
+                header('Location: dash-listas.php');
                 exit();
             }
         } catch (Exception $e) {
