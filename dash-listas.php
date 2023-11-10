@@ -14,6 +14,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
         html {
             overflow-y: hidden;
         }
+
         .buttonNovaLista {
             position: absolute;
             top: 15%;
@@ -21,21 +22,85 @@ $data = getAllListByIdUser($_SESSION['user_id']);
             transform: translate(-50%, -50%);
             width: 90%;
         }
+
         .max-height {
-            max-height: 700px;
+            max-height: 90vh;
             overflow-y: auto;
             overflow-x: hidden;
         }
+
+        .div-base {
+            width: 115vw;
+        }
+
         .containerCards {
-            margin-top: 145px;
+            margin-top: 20vh;
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50vh;
+            left: 50vw;
             transform: translate(-50%, -50%);
-            width: 90%;
+            width: 95vw;
+
+        }
+        .card {
+            margin-bottom: 6vh;
+            width: 16vw;
+            background-color: #DDF2FD;
+        }
+        .card-body {
+            width: 10vw;
+            height: 20vh;
+            margin-left: 1.2vw;
+            margin-bottom: 2vh;
+
+        }
+        .button-view-items {
+            margin-left: -3.5vh;
+            background-color: #164863;
+            border-color: #9BBEC8;
+        }
+        .button-view-items:hover {
+            background-color: #9BBEC8;
+            border-color: #164863;
+        }
+        .button-edit-items {
+            margin-right: 0.5vw;
+            background-color: #9BBEC8;
+            color: #164863;
+            border-color: #164863;
+        }
+
+        .button-edit-items:hover {
+            background-color: #164863;
+            color: #DDF2FD;
+            border-color: #164863;
+        }
+
+        .con-pen {
+            font-size: 0.8vw;
         }
     </style>
     <br><br><br>
+<?php if ($data !== null): ?>
+    <?php foreach ($data as $row): ?>
+        <div class="modal fade" id="itensLista<?= $row['id']; ?>" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><?= $row['titulo']; ?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
 
     <button type="button" class="btn btn-outline-success buttonNovaLista col-1" data-toggle="modal"
             data-target="#itensLista">
@@ -43,8 +108,8 @@ $data = getAllListByIdUser($_SESSION['user_id']);
     </button>
     <br><br>
     <div class="containerCards max-height">
-        <?php if ($data !== null): ?>
-            <div class="row">
+        <?php if (!$data == null): ?>
+            <div class="row div-base">
                 <?php foreach ($data as $row): ?>
                     <?php
                     $timestamp = strtotime($row['created_at']);
@@ -55,15 +120,15 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $row['titulo']; ?></h5>
-                                <p class="card-text">Pendente/Concluido (<?= $dataCount[0]['pendente'];?>/<?= $dataCount[0]['concluido'];?>)</p>
+                                <p class="card-text con-pen">Pendente/Concluido (<?= $dataCount[0]['pendente'];?>/<?= $dataCount[0]['concluido'];?>)</p>
                                 <div class="container d-flex">
                                     <form class="mr-2" action="dash-itens.php" method="post">
                                         <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
                                         <input type="hidden" name="titulo" value="<?= $row['titulo']; ?>">
-                                        <input type="submit" class="btn btn-primary" value="Ver itens">
+                                        <input type="submit" class="btn btn-primary button-view-items" value="Ver itens">
                                     </form>
-                                    <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#edit-list-<?= $row['id']; ?>">
-                                        Edit
+                                    <button type="button" class="btn btn-outline-warning button-edit-items" data-toggle="modal" data-target="#edit-list-<?= $row['id']; ?>">
+                                        Editar
                                     </button>
                                     <form action="gerenciar-lista.php" method="POST">
                                         <input type="hidden" name="opcao" value="removerLista">
