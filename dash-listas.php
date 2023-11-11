@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 $data = getAllListByIdUser($_SESSION['user_id']);
 
 ?>
-
+    <script src="js/script-dash-listas.js"></script>
     <style>
         html {
             overflow-y: hidden;
@@ -42,11 +42,13 @@ $data = getAllListByIdUser($_SESSION['user_id']);
             width: 95vw;
 
         }
+
         .card {
             margin-bottom: 6vh;
             width: 16vw;
             background-color: #DDF2FD;
         }
+
         .card-body {
             width: 10vw;
             height: 20vh;
@@ -54,15 +56,18 @@ $data = getAllListByIdUser($_SESSION['user_id']);
             margin-bottom: 2vh;
 
         }
+
         .button-view-items {
             margin-left: -3.5vh;
             background-color: #164863;
             border-color: #9BBEC8;
         }
+
         .button-view-items:hover {
             background-color: #9BBEC8;
             border-color: #164863;
         }
+
         .button-edit-items {
             margin-right: 0.5vw;
             background-color: #9BBEC8;
@@ -112,28 +117,34 @@ $data = getAllListByIdUser($_SESSION['user_id']);
             <div class="row div-base">
                 <?php foreach ($data as $row): ?>
                     <?php
-                    $timestamp = strtotime($row['created_at']);
-                    $row['created_at'] = date("d/m/Y - H:i", $timestamp);
-                    $dataCount = countItensByIdList($row['id']);
+                        $timestamp = strtotime($row['created_at']);
+                        $row['created_at'] = date("d/m/Y - H:i", $timestamp);
+                        $dataCount = countItensByIdList($row['id']);
                     ?>
                     <div class="col-sm-2">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $row['titulo']; ?></h5>
-                                <p class="card-text con-pen">Pendente/Concluido (<?= $dataCount[0]['pendente'];?>/<?= $dataCount[0]['concluido'];?>)</p>
+                                <p class="card-text con-pen">Pendente/Concluido (<?= $dataCount[0]['pendente']; ?>
+                                    /<?= $dataCount[0]['concluido']; ?>)</p>
                                 <div class="container d-flex">
                                     <form class="mr-2" action="dash-itens.php" method="post">
                                         <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
                                         <input type="hidden" name="titulo" value="<?= $row['titulo']; ?>">
-                                        <input type="submit" class="btn btn-primary button-view-items" value="Ver itens">
+                                        <input type="submit" class="btn btn-primary button-view-items"
+                                               value="Ver itens">
                                     </form>
-                                    <button type="button" class="btn btn-outline-warning button-edit-items" data-toggle="modal" data-target="#edit-list-<?= $row['id']; ?>">
+                                    <button type="button" class="btn btn-outline-warning button-edit-items"
+                                            data-toggle="modal" data-target="#edit-list-<?= $row['id']; ?>"
+                                            data-form-id="<?= $row['id']; ?>">
                                         Editar
                                     </button>
-                                    <form action="gerenciar-lista.php" method="POST">
+                                    <form id="editaLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
                                         <input type="hidden" name="opcao" value="removerLista">
                                         <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
-                                        <button type="submit" id="remove-lista-<?= $row['id']; ?>" class="btn btn-outline-danger">X</button>
+                                        <button type="submit" class="btn btn-outline-danger button-delete-items"
+                                                data-form-id="<?= $row['id']; ?>">X
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -168,7 +179,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
     </div>
 <?php if (!$data == null): ?>
     <?php foreach ($data as $row): ?>
-        <div class="modal fade" id="edit-list-<?= $row['id']; ?>" tabindex="-1" role="dialog"
+        <div class="modal fade form-edicao" id="edit-list-<?= $row['id']; ?>" tabindex="-1" role="dialog"
              aria-labelledby="editListModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -192,85 +203,6 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                 </div>
             </div>
         </div>
-        <script>
-            $(document).ready(function () {
-                $('#editaLista-<?= $row['id']; ?>').submit(function (event) {
-                    event.preventDefault();
-                    $.ajax({
-                        type: 'POST',
-                        url: 'gerenciar-lista.php',
-                        data: $('#editaLista-<?= $row['id']; ?>').serialize(),
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data.status === 'sucesso') {
-                                toastr.options = {
-                                    progressBar: true,
-                                    timeOut: 1500
-                                };
-                                toastr.success('Sucesso<br>Lista alterada com sucesso');
-                                setTimeout(function () {
-                                    location.reload();
-                                }, 1500);
-                            } else {
-                                toastr.options = {
-                                    progressBar: true,
-                                    timeOut: 2000
-                                };
-                                toastr.error('Erro<br>' + data.status);
-                            }
-                        },
-                        error: function () {
-                            toastr.error('Erro<br>Erro interno do servidor, tente novamente mais tarde.');
-                        }
-                    });
-                });
-            });
-            document.getElementById("remove-lista-<?= $row['id']; ?>").addEventListener("click", (event) => {
-                event.preventDefault();
-                Swal.fire({
-                    title: "Tem certeza?",
-                    text: "Você está prestes a excluir essa lista",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Sim, excluir!",
-                    cancelButtonText: "Cancelar"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        event.target.form.submit();
-                    }
-                });
-            });
-        </script>
     <?php endforeach; ?>
 <?php endif; ?>
-    <script>
-
-        $(document).ready(function () {
-            $('#cadastroLista').submit(function (event) {
-                event.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: 'gerenciar-lista.php',
-                    data: $('#cadastroLista').serialize(),
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.status === 'sucesso') {
-                            location.reload();
-                        } else {
-                            toastr.options = {
-                                progressBar: true,
-                                timeOut: 2000
-                            };
-                            toastr.error('Erro<br>' + data.status);
-                        }
-                    },
-                    error: function () {
-                        toastr.error('Erro<br>Erro interno do servidor, tente novamente mais tarde.');
-                    }
-                });
-            });
-        });
-    </script>
 <?php require_once 'footer.php'; ?>

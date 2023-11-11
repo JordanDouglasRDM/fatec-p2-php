@@ -242,3 +242,13 @@ function getUserById(int $id)
         return null;
     }
 }
+function addCompromisso(array $data)
+{
+    global $conn;
+    $query = 'INSERT INTO compromissos (nome, local, data, hora, user_id) VALUES (?,?,?,?,?);';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('ssssi', $data['nome'], $data['local'], $data['data'], $data['hora'], $data['user_ìd']);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
