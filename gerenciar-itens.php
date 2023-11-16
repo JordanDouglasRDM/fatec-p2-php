@@ -39,24 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else if ($opcao == 'adicionar') {
         try {
-
-            /**
-             * Para cadastrar itens em massa, descomente:
-             **/
-
-//            $user_id = $_SESSION['user_id'];
-//            for ($i = 1; $i < 21; $i++) {
-//                for ($j = 1; $j < 25; $j++) {
-//                    $data = [
-//                        'nome' => "Algum item $j",
-//                        'lista_id' => $i
-//                    ];
-//                    addItem($data);
-//                }
-//            }
-//            echo json_encode(['status' => 'sucesso']);
-//            exit();
-
             $nome = filter_input(INPUT_POST, 'nome');
             $lista_id = filter_input(INPUT_POST, 'lista_id', FILTER_VALIDATE_INT);
 

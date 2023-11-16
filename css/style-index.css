@@ -6,42 +6,39 @@ margin-left: 50vw;
 width: 30vw;
 border-radius: 0.75rem;
 background-color: #427D9D;
-color: white;
+color: #DDF2FD;
 padding: 5vh 5vw;
 }
 .button-login {
-    background-color: orange;
-    color: white;
+    background-color: #DDF2FD; /* Green */
+    border: none;
+    color: #164863;
     margin-left: 6vw;
     margin-top: 3vh;
     padding: 1vh 3vw;
     font-weight: bold;
 }
+
 .button-login:hover {
-    color: white;
-    background-color: orangered;
-    border-color: orange;
-}
-.button-login:hover {
-    color: white;
-        background-color: orangered;
-        border-color: orange;
+    background-color: #164863;
+    color: #DDF2FD;
 }
 p {
     font-size: 1vw;
     margin-top: 5vh;
     font-weight: bold;
 }
+
 .register {
-    color: orange;
+    color: #164863;
 }
+
 .register:hover {
-    color: orangered;
+    color: #DDF2FD;
 }
+
 h3 {
-    text-align: center;
     margin-left: 0.5vw;
-    color: orange;
 }
 .email {
     margin-top: 6vh;
@@ -49,9 +46,11 @@ h3 {
 label {
     font-weight: bold;
 }
+
 input {
     color: #164863;
 }
+
 .modal-container {
 margin-top: 1vh;
 margin-left: -9vw;
@@ -62,6 +61,7 @@ color: #DDF2FD;
 padding: 5vh 5vw;
 position: relative;
 }
+
 .button-register {
     background-color: #164863;
     border: none;
@@ -71,6 +71,7 @@ position: relative;
     padding: 1vh 5vw;
     font-weight: bold;
 }
+
 .button-register:hover {
     background-color: #DDF2FD;
     color: #164863;

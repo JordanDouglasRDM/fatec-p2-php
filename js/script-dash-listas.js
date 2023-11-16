@@ -25,14 +25,19 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    // Evento de clique no botão de edição
     $(".button-edit-items").click(function () {
+        // Obtém o ID do formulário associado ao botão clicado
         var formId = $(this).data('form-id');
 
+        // Encontra o formulário correspondente ao ID
         var form = $("#editaLista-" + formId);
 
+        // Evento de envio do formulário de edição
         form.submit(function (event) {
             event.preventDefault();
 
+            // Faz a requisição AJAX para atualizar o título da lista
             $.ajax({
                 type: 'POST',
                 url: 'gerenciar-lista.php',
@@ -65,10 +70,13 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    // Evento de clique no botão de edição
     $(".button-delete-items").click(function () {
+        // Obtém o ID do formulário associado ao botão clicado
         var formId = $(this).data('form-id');
 
-        var form = "removeLista-" + formId;
+        // Encontra o formulário correspondente ao ID
+        var form = "editaLista-" + formId;
         document.getElementById(form).addEventListener("click", (event) => {
             event.preventDefault();
             Swal.fire({

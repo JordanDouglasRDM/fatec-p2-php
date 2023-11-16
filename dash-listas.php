@@ -10,8 +10,81 @@ $data = getAllListByIdUser($_SESSION['user_id']);
 
 ?>
     <script src="js/script-dash-listas.js"></script>
-    <link rel="stylesheet" href="css/style-dash-listas.css">
+    <style>
+        html {
+            overflow-y: hidden;
+        }
 
+        .buttonNovaLista {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+        }
+
+        .max-height {
+            max-height: 90vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .div-base {
+            width: 115vw;
+        }
+
+        .containerCards {
+            margin-top: 20vh;
+            position: absolute;
+            top: 50vh;
+            left: 50vw;
+            transform: translate(-50%, -50%);
+            width: 95vw;
+
+        }
+
+        .card {
+            margin-bottom: 6vh;
+            width: 16vw;
+            background-color: #DDF2FD;
+        }
+
+        .card-body {
+            width: 10vw;
+            height: 20vh;
+            margin-left: 1.2vw;
+            margin-bottom: 2vh;
+
+        }
+
+        .button-view-items {
+            margin-left: -3.5vh;
+            background-color: #164863;
+            border-color: #9BBEC8;
+        }
+
+        .button-view-items:hover {
+            background-color: #9BBEC8;
+            border-color: #164863;
+        }
+
+        .button-edit-items {
+            margin-right: 0.5vw;
+            background-color: #9BBEC8;
+            color: #164863;
+            border-color: #164863;
+        }
+
+        .button-edit-items:hover {
+            background-color: #164863;
+            color: #DDF2FD;
+            border-color: #164863;
+        }
+
+        .con-pen {
+            font-size: 0.8vw;
+        }
+    </style>
     <br><br><br>
 <?php if ($data !== null): ?>
     <?php foreach ($data as $row): ?>
@@ -39,7 +112,6 @@ $data = getAllListByIdUser($_SESSION['user_id']);
         Nova lista
     </button>
     <br><br>
-<div class="scrollbar">
     <div class="containerCards max-height">
         <?php if (!$data == null): ?>
             <div class="row div-base">
@@ -52,21 +124,27 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                     <div class="col-sm-2">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title title-card"><?= $row['titulo']; ?></h5>
-                                <p class="card-text con-pen">Pendente/Concluido (<?= $dataCount[0]['pendente'];?>/<?= $dataCount[0]['concluido'];?>)</p>
+                                <h5 class="card-title"><?= $row['titulo']; ?></h5>
+                                <p class="card-text con-pen">Pendente/Concluido (<?= $dataCount[0]['pendente']; ?>
+                                    /<?= $dataCount[0]['concluido']; ?>)</p>
                                 <div class="container d-flex">
                                     <form class="mr-2" action="dash-itens.php" method="post">
                                         <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
                                         <input type="hidden" name="titulo" value="<?= $row['titulo']; ?>">
-                                        <input type="submit" class="btn button-view-items" value="Ver itens">
+                                        <input type="submit" class="btn btn-primary button-view-items"
+                                               value="Ver itens">
                                     </form>
-                                    <button type="button" class="btn button-edit-items" data-toggle="modal" data-target="#edit-list-<?= $row['id']; ?>">
+                                    <button type="button" class="btn btn-outline-warning button-edit-items"
+                                            data-toggle="modal" data-target="#edit-list-<?= $row['id']; ?>"
+                                            data-form-id="<?= $row['id']; ?>">
                                         Editar
                                     </button>
-                                    <form id="removeLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
+                                    <form id="editaLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
                                         <input type="hidden" name="opcao" value="removerLista">
                                         <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
-                                        <button type="submit" id="remove-lista-<?= $row['id']; ?>" class="btn btn-danger button-delete">X</button>
+                                        <button type="submit" class="btn btn-outline-danger button-delete-items"
+                                                data-form-id="<?= $row['id']; ?>">X
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -81,9 +159,9 @@ $data = getAllListByIdUser($_SESSION['user_id']);
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header moda-new-list">
+                <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Adicionar Nova Lista</h5>
-                    <button type="button" class="close button-close" data-dismiss="modal" aria-label="Fechar">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -106,14 +184,14 @@ $data = getAllListByIdUser($_SESSION['user_id']);
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header moda-new-list">
+                    <div class="modal-header">
                         <h5 class="modal-title" id="editListModalLabel">Editar título da lista</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="editaLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
+                        <form id="editaLista-<?= $row['id']; ?>" action="" method="POST">
                             <input type="text" class="form-control" id="titulo" name="titulo"
                                    value="<?= $row['titulo']; ?>">
                             <br><br>

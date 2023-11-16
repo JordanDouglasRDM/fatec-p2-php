@@ -9,21 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $opcao = filter_input(INPUT_POST, 'opcao');
     if ($opcao == 'novaLista') {
         try {
-            /**
-             * Para cadastrar listas em massa, descomente:
-             **/
-//            $user_id = $_SESSION['user_id'];
-//            for ($i = 1; $i < 21; $i++) {
-//                $data = [
-//                    'user_id' => $user_id,
-//                    'titulo' => "Lista $i"
-//                ];
-//                addLista($data);
-//            }
-//            echo json_encode(['status' => 'sucesso']);
-//            exit();
-            $user_id = $_SESSION['user_id'];
             $titulo = filter_input(INPUT_POST, 'titulo');
+            $user_id = $_SESSION['user_id'];
             $data = [
                 'user_id' => $user_id,
                 'titulo' => $titulo

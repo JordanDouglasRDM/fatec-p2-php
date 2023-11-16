@@ -3,13 +3,21 @@ require_once 'conn.php';
 function getUserByEmail(string $email)
 {
     global $conn;
-    $query = 'SELECT * FROM users WHERE email = ?';
+    $query = 'SELECT id, nome, email, senha FROM users WHERE email = ?';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('s', $email);
     $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $data = $result->fetch_assoc();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $nome, $meuEmail, $senha);
+        $stmt->fetch();
+        $data = [
+            'id' => $id,
+            'nome' => $nome,
+            'email' => $meuEmail,
+            'senha' => $senha
+        ];
         $stmt->close();
         return $data;
     } else {
@@ -43,13 +51,19 @@ function addLista(array $data)
 function getListByTitle(string $titulo, int $user_id)
 {
     global $conn;
-    $query = 'SELECT * FROM listas WHERE titulo = ? AND user_id = ?';
+    $query = 'SELECT id, titulo, user_id FROM listas WHERE titulo = ? AND user_id = ?';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('si', $titulo, $user_id);
     $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $data = $result->fetch_assoc();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $tituloColumn, $user_id);
+        $stmt->fetch();
+        $data = [
+            'id' => $id,
+            'titulo' => $tituloColumn,
+            'user_id' => $user_id
+        ];
         $stmt->close();
         return $data;
     } else {
@@ -212,10 +226,15 @@ function getUserById(int $id)
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $id);
     $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $data = $result->fetch_assoc();
-
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $nome, $email);
+        $stmt->fetch();
+        $data = [
+            'id' => $id,
+            'nome' => $nome,
+            'email' => $email
+        ];
         $stmt->close();
         return $data;
     } else {
@@ -228,64 +247,7 @@ function addCompromisso(array $data)
     global $conn;
     $query = 'INSERT INTO compromissos (nome, local, data, hora, user_id) VALUES (?,?,?,?,?);';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('ssssi', $data['nome'], $data['local'], $data['data'], $data['hora'], $data['user_id']);
-    $result = $stmt->execute();
-    $stmt->close();
-    return $result;
-}
-function getCompromissoByName(string $name, int $user_id)
-{
-    global $conn;
-    $query = 'SELECT * FROM compromissos WHERE nome = ? AND user_id = ?';
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('si', $name, $user_id);
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $data = $result->fetch_assoc();
-
-        $stmt->close();
-        return $data;
-    } else {
-        $stmt->close();
-        return null;
-    }
-}
-function getAllCompromissoByIdUser(int $user_id)
-{
-    global $conn;
-    $query = 'SELECT * FROM compromissos WHERE user_id = ? ORDER BY created_at DESC';
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('i', $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $data = $result->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
-        return $data;
-    } else {
-        $stmt->close();
-        return null;
-    }
-}
-function updateCompromisso(int $compromisso_id, array $data)
-{
-    global $conn;
-    $query = 'UPDATE compromissos SET nome = ?, local = ?, data = ?, hora = ?  WHERE id = ?';
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('ssssi', $data['nome'], $data['local'], $data['data'], $data['hora'], $compromisso_id);
-    $result = $stmt->execute();
-    $stmt->close();
-    return $result;
-}
-function removeCompromisso(int $compromisso_id)
-{
-    global $conn;
-    $query = 'DELETE FROM compromissos WHERE id = ?;';
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('i', $compromisso_id);
+    $stmt->bind_param('ssssi', $data['nome'], $data['local'], $data['data'], $data['hora'], $data['user_ìd']);
     $result = $stmt->execute();
     $stmt->close();
     return $result;
