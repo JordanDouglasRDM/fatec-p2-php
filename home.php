@@ -7,95 +7,22 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 ?>
-<style>.flip-card {
-        background-color: transparent;
-        width: 190px;
-        height: 254px;
-        perspective: 1000px;
-        font-family: sans-serif;
-    }
+    <link rel="stylesheet" href="css/style-home.css">
+<div class="apresentacao">
+    <h2>Bem vindo </h2>
 
-    .title {
-        font-size: 1em;
-        font-weight: 900;
-        text-align: center;
-        margin: 0;
-    }
-
-    .flip-card-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        transition: transform 0.8s;
-        transform-style: preserve-3d;
-    }
-
-    .flip-card:hover .flip-card-inner {
-        transform: rotateY(180deg);
-    }
-
-    .flip-card-front, .flip-card-back {
-        box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        border: 1px solid #ccc; /* cinza claro */
-        border-radius: 1rem;
-    }
-
-    .flip-card-front {
-        background: linear-gradient(120deg, #fff 60%, #eee 88%, #ddd 40%, rgba(255, 127, 80, 0.603) 48%);
-        color: #ccc; /* cinza claro */
-    }
-
-    .flip-card-back {
-        background: linear-gradient(120deg, #aaa 30%, #ccc 88%, #fff 40%, #f7b9a0 78%);
-        color: #fff; /* branco */
-        transform: rotateY(180deg);
-    }
-    .meuContainer {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    .meus-cards {
-        margin-right: 100px;
-    }
-</style>
-<div class="meuContainer row">
-    <div class="meus-cards card">
-        <div class="flip-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front">
-                    <p class="title">Minhas Anotações</p>
-                    <p>Hover Me</p>
-                </div>
-                <div class="flip-card-back">
-                    <p class="title">Acessar</p>
-                    <a style="text-decoration: none" href="dash-listas.php">Clique aqui</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="meus-cards card">
-        <div class="flip-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front">
-                    <p class="title">Meus Compromissos</p>
-                    <p>Hover Me</p>
-                </div>
-                <div class="flip-card-back">
-                    <p class="title">Acessar</p>
-                    <a style="text-decoration: none" href="dash-compromissos.php">Clique aqui</a>
-                </div>
-            </div>
-        </div>
+    <p>
+        Este projeto foi desenvolvido por Jordan Douglas, Matheus Couto, Julia Ferreti, Jessica Pelosi e Rafael Medeiros.
+    </p>
+    <p>
+        Em um mundo onde 24 horas por dia parecem insuficientes para cumprirmos nossos afazeres, o gerenciamento eficiente do tempo é crucial para alcançar nossos objetivos, seja na esfera profissional, acadêmica ou pessoal.
+        Com essa necessidade em mente, nossa equipe criou um pequeno sistema web dedicado ao gerenciamento de tarefas e compromissos,
+        proporcionando uma abordagem prática e eficaz para otimizar o seu dia a dia.
+    <p><br>
+    <div class="botao-nav">
+        <a href="dash-listas.php" role="button" class="button-name">Gerenciar Anotações</a>
+        <a href="dash-compromissos.php" role="button" class="button-name">Gerenciar Compromissos</a>
     </div>
 </div>
+
+<?php require_once 'footer.php'; ?>

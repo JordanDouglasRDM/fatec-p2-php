@@ -1,0 +1,74 @@
+
+html {
+    overflow-y: hidden;
+}
+
+.max-height {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.div-base {
+}
+
+.containerCards {
+    margin-top: 20vh;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    width: 95vw;
+
+}
+
+.card {
+    background-color: #EEF5FF;
+    margin-bottom: 6vh;
+    width: 200px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translate(0, -10px);
+}
+
+.card-header {
+    background-color: #87C4FF;
+    color: #362e2e;
+}
+
+.card-footer {
+    background-color: #CDCDCD;
+}
+
+.card-body {
+    width: auto;
+    height: auto;
+    margin-left: 1.2vw;
+    margin-bottom: 2vh;
+}
+
+
+.botao-rodape-view {
+    margin-right: 10px;
+}
+
+.div-base {
+    padding-top: 15px;
+}
+.title-page {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 50px;
+}
+.buttonNovaLista {
+    margin-left: 40px;
+    margin-top: 60px;
+    /*position: absolute;*/
+    /*top: 15%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    /*width: 90%;*/
+}
+

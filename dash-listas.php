@@ -24,9 +24,9 @@ $data = getAllListByIdUser($_SESSION['user_id']);
         }
 
         .max-height {
-            max-height: 90vh;
+            max-height: 500px;
             overflow-y: auto;
-            overflow-x: hidden;
+            overflow-x: auto;
         }
 
         .div-base {
@@ -84,7 +84,14 @@ $data = getAllListByIdUser($_SESSION['user_id']);
         .con-pen {
             font-size: 0.8vw;
         }
+        .title-page {
+            text-align: center;
+            font-size: 25px;
+        }
     </style>
+    <div class="title-page">
+        Minhas anotações
+    </div>
     <br><br><br>
 <?php if ($data !== null): ?>
     <?php foreach ($data as $row): ?>
@@ -139,7 +146,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                                             data-form-id="<?= $row['id']; ?>">
                                         Editar
                                     </button>
-                                    <form id="editaLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
+                                    <form id="removeLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
                                         <input type="hidden" name="opcao" value="removerLista">
                                         <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
                                         <button type="submit" class="btn btn-outline-danger button-delete-items"
@@ -191,7 +198,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="editaLista-<?= $row['id']; ?>" action="" method="POST">
+                        <form id="editaLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
                             <input type="text" class="form-control" id="titulo" name="titulo"
                                    value="<?= $row['titulo']; ?>">
                             <br><br>

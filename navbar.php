@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['user_id'])) {
     require_once 'repository.php';
     $dataUser = getUserById($_SESSION['user_id']);
-    echo '
+?>
 <style>
     .meuNome {
         margin-right: 10%;
@@ -13,7 +13,7 @@ if (isset($_SESSION['user_id'])) {
     
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Gerenciador de Listas</a>
+    <a class="navbar-brand" href="home.php">ProTasker</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -25,11 +25,9 @@ if (isset($_SESSION['user_id'])) {
             <a class="nav-item nav-link" href="dash-compromissos.php">Compromissos</a>
         </div>
     </div>
-    <p class="meuNome">Olá, ' . $dataUser['nome'] . '</p>
+    <p class="meuNome">Olá, <?= $dataUser['nome']; ?></p>
     <form class="form-inline">
-        <a href="logout.php" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</a>
+        <a href="logout.php" class="btn btn-danger my-2 my-sm-0" type="submit">Sair</a>
     </form>
 </nav>
-
-';
-}
+<?php } ?>
