@@ -14,18 +14,40 @@ $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated
 ?>
     <script src="js/script-dash-itens.js"></script>
     <style>
-        .tituloLista {
+        .div-tituloLista {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-top: 50px;
             font-size: 30px;
-            margin-left: 40%;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .voltar {
+            margin-right: 10px;
+        }
+
+        .tituloLista {
+            text-align: center;
+            flex-grow: 1;
         }
     </style>
-<div class="tituloLista">
-    <?php
+
+    <div class="div-tituloLista">
+    <span class="voltar">
+        <a href="dash-listas.php">
+            <i class="fa-solid fa-arrow-left" style="color: #000000;"></i>
+        </a>
+    </span>
+        <span class="tituloLista">
+        <?php
         echo $_POST['titulo'];
-    ?>
-</div>
-<div class="container col-3" style="margin-bottom: 50px; margin-top: 10px">
+        ?>
+    </span>
+    </div>
+
+    <div class="container col-3" style="margin-bottom: 50px; margin-top: 10px">
     <form class="wrapper" id="cadastroItem" action="gerenciar-itens.php" method="post">
         <label for="nome" style="font-size: 20px;">Novo item:</label>
         <input type="text" class="form-control" name="nome" id="nome" placeholder="Descrição do item"
