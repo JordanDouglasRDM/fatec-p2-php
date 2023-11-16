@@ -12,15 +12,12 @@ $data = getAllItemByListId($lista_id);
 $dataItemPendente = getAllItemWithValidation($lista_id, 'status', '0', 'created_at', 'desc');
 $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated_at', 'desc');
 ?>
-    <script src="js/script-dash-itens.js"></script>
-
-    <link rel="stylesheet" href="css/style-dash-itens.css">
-    <div class="tituloLista">
-        <div class="title-list">
-            <?php
-            echo $_POST['titulo'];
-            ?>
-        </div>
+<link rel="stylesheet" href="css/style-dash-itens.css">
+<div class="title-list">
+    <?php
+        echo $_POST['titulo'];
+    ?>
+</div>
 <button type="button" class="btn btn-outline-success buttonNovaLista col-1 button-new-item" data-toggle="modal" data-target="#novoItem">
     Novo Item
 </button>
@@ -46,101 +43,164 @@ $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated
             </div>
         </div>
     </div>
-        </div>
-        <?php if ($data !== null): ?>
+</div>
+
+<?php if ($data !== null): ?>
 <div class="scrollbar">
-            <div class="meuContainer container w-100">
-                <div class="row w-100">
+    <div class="meuContainer container w-100">
+        <div class="row w-100">
             <div class="" style="width: 50%;">
                 <h3 class="">Itens pendentes:</h3>
                 <div class="">
                     <table class="table table-hover table-left">
-                                <thead>
-                                <tr>
-                                    <th>Nome</th>
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
                             <th style="text-align: center;" >Ação</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php if ($dataItemPendente !== null): ?>
-                                    <?php foreach ($dataItemPendente as $item): ?>
-                                        <tr>
-                                            <td class="col-8"><?= $item['nome']; ?></td>
-                                            <td class="meuContainer container">
-                                                <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
-                                                    <input type="hidden" name="item" value="<?= $item['id'] ?>">
-                                                    <input type="hidden" name="opcao" value="marcarConcluido">
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if ($dataItemPendente !== null): ?>
+                            <?php foreach ($dataItemPendente as $item): ?>
+                                <tr>
+                                    <td class="col-8"><?= $item['nome']; ?></td>
+                                    <td class="meuContainer container">
+                                        <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
+                                            <input type="hidden" name="item" value="<?= $item['id'] ?>">
+                                            <input type="hidden" name="opcao" value="marcarConcluido">
                                             <input type="submit" class="btn btn-success button-conclude" value="Concluir">
-                                                </form>
-                                                <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
-                                                    <input type="hidden" name="item" value="<?= $item['id'] ?>">
-                                                    <input type="hidden" name="opcao" value="excluir">
-                                                    <input type="submit" class="btn btn-danger" value="X">
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                                <?php if ($dataItemPendente == null): ?>
-                                    <td>Nenhum item pendente</td>
-                                    <td>
-                                        <button class="btn btn-success" disabled>Concluir</button>
-                                        <button class="btn btn-danger" disabled>X</button>
+                                        </form>
+                                        <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
+                                            <input type="hidden" name="item" value="<?= $item['id'] ?>">
+                                            <input type="hidden" name="opcao" value="excluir">
+                                            <input type="submit" class="btn btn-danger" value="X">
+                                        </form>
                                     </td>
-                                <?php endif; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="" style="width: 50%">
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <?php if ($dataItemPendente == null): ?>
+                            <td>Nenhum item pendente</td>
+                            <td>
+                                <button class="btn btn-success" disabled>Concluir</button>
+                                <button class="btn btn-danger" disabled>X</button>
+                            </td>
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="" style="width: 50%">
                 <h3 class="">Itens concluídos:</h3>
                 <div class="">
                     <table class="table table-hover table-form">
-                                <thead>
-                                <tr>
-                                    <th>Nome</th>
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
                             <th style="text-align: center;">Ação</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php if ($dataItemConcluido !== null): ?>
-                                    <?php foreach ($dataItemConcluido as $item): ?>
-                                        <tr>
-                                            <td class="col-8"><?= $item['nome']; ?></td>
-                                            <td class="meuContainer container">
-                                                <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
-                                                    <input type="hidden" name="item" value="<?= $item['id'] ?>">
-                                                    <input type="hidden" name="opcao" value="marcarPendente">
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if ($dataItemConcluido !== null): ?>
+                            <?php foreach ($dataItemConcluido as $item): ?>
+                                <tr>
+                                    <td class="col-8"><?= $item['nome']; ?></td>
+                                    <td class="meuContainer container">
+                                        <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
+                                            <input type="hidden" name="item" value="<?= $item['id'] ?>">
+                                            <input type="hidden" name="opcao" value="marcarPendente">
                                             <input type="submit" class="btn button-pending"
                                                     value="Pendente">
-                                                </form>
-                                                <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
-                                                    <input type="hidden" name="item" value="<?= $item['id'] ?>">
-                                                    <input type="hidden" name="opcao" value="excluir">
-                                                    <input type="submit" class="btn btn-danger" value="X">
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                                <?php if ($dataItemConcluido == null): ?>
-                                    <td>Nenhum item concluido</td>
-                                    <td>
-                                <button class="btn btn-warning button-pending" disabled>Pendente</button>
-                                        <button class="btn btn-danger" disabled>X</button>
+                                        </form>
+                                        <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
+                                            <input type="hidden" name="item" value="<?= $item['id'] ?>">
+                                            <input type="hidden" name="opcao" value="excluir">
+                                            <input type="submit" class="btn btn-danger" value="X">
+                                        </form>
                                     </td>
-                                <?php endif; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <?php if ($dataItemConcluido == null): ?>
+                            <td>Nenhum item concluido</td>
+                            <td>
+                                <button class="btn btn-warning button-pending" disabled>Pendente</button>
+                                <button class="btn btn-danger" disabled>X</button>
+                            </td>
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        <?php endif; ?>
-        <?php if ($data == null): ?>
-            <div class="alert alert-danger">
-                Não possui itens cadastrados
-            </div>
-        <?php endif; ?>
-<?php require_once 'footer.php';
-exit(); ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<?php if ($data == null): ?>
+    <div class="alert alert-danger">
+        Não possui itens cadastrados
+    </div>
+<?php endif; ?>
+    <script>
+        $(document).ready(function () {
+            $('#cadastroItem').submit(function (event) {
+                event.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    type: 'POST',
+                    url: 'gerenciar-itens.php',
+                    data: form.serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 'sucesso') {
+                            toastr.options = {
+                                progressBar: true,
+                                timeOut: 1500
+                            };
+                            toastr.success('Sucesso<br>Adicionado com sucesso');
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500);
+                        } else {
+                            toastr.options = {
+                                progressBar: true,
+                                timeOut: 2000
+                            };
+                            toastr.error('Erro<br>' + data.status);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Erro<br>Erro interno do servidor, tente novamente mais tarde.');
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('form[id^="alterarItemForm_"]').submit(function (event) {
+                event.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    type: 'POST',
+                    url: 'gerenciar-itens.php',
+                    data: form.serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 'sucesso') {
+                            location.reload();
+                        } else {
+                            toastr.options = {
+                                progressBar: true,
+                                timeOut: 2000
+                            };
+                            toastr.error('Erro<br>' + data.status);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Erro<br>Erro interno do servidor, tente novamente mais tarde.');
+                    }
+                });
+            });
+        });
+    </script>
+<?php require_once 'footer.php'; exit(); ?>

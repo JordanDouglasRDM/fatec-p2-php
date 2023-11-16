@@ -2,7 +2,6 @@
 require_once 'header.php';
 ?>
     <link rel="stylesheet" href="css/style-index.css">
-    <script src="js/script-index.js"></script>
     <div class="container">
         <form id="loginForm" action="gerenciar-usuario.php" method="post" class="">
             <h3>Tasks and Appointments</h3>
@@ -52,6 +51,60 @@ require_once 'header.php';
             </div>
         </div>
     </div>
+    <script>
+        toastr.options = {
+            progressBar: true,
+            timeOut: 2000
+        }
+        $(document).ready(function () {
+            $('#loginForm').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'post',
+                    url: 'gerenciar-usuario.php',
+                    data: $('#loginForm').serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 'sucesso') {
+                            toastr.success('Sucesso<br>Sucesso ao realizar o login.');
+                            setTimeout(function () {
+                                window.location.href = 'home.php';
+                            }, 2000);
+                        } else {
+                            toastr.error('Erro<br>' + data.status);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Erro<br>Erro interno do servidor, tente novamente mais tarde.');
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $('#cadastroUserForm').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'post',
+                    url: 'gerenciar-usuario.php',
+                    data: $('#cadastroUserForm').serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 'sucesso') {
+                            toastr.success('Sucesso<br>Usuário adicionado com sucesso.');
+                            setTimeout(function () {
+                                window.location.href = 'index.php';
+                            }, 2000);
+                        } else {
+                            toastr.error('Erro<br>' + data.status);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Erro<br>' + this.data);
+                    }
+                });
+            });
+        });
+    </script>
 <?php
 require_once 'footer.php';
 ?>

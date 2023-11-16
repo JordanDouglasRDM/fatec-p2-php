@@ -9,9 +9,8 @@ if (!isset($_SESSION['user_id'])) {
 $data = getAllListByIdUser($_SESSION['user_id']);
 
 ?>
-    <script src="js/script-dash-listas.js"></script>
     <link rel="stylesheet" href="css/style-dash-listas.css">
-
+    
     <br><br><br>
 <?php if ($data !== null): ?>
     <?php foreach ($data as $row): ?>
@@ -44,9 +43,9 @@ $data = getAllListByIdUser($_SESSION['user_id']);
             <div class="row div-base">
                 <?php foreach ($data as $row): ?>
                     <?php
-                        $timestamp = strtotime($row['created_at']);
-                        $row['created_at'] = date("d/m/Y - H:i", $timestamp);
-                        $dataCount = countItensByIdList($row['id']);
+                    $timestamp = strtotime($row['created_at']);
+                    $row['created_at'] = date("d/m/Y - H:i", $timestamp);
+                    $dataCount = countItensByIdList($row['id']);
                     ?>
                     <div class="col-sm-2">
                         <div class="card">
@@ -62,7 +61,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                                     <button type="button" class="btn button-edit-items" data-toggle="modal" data-target="#edit-list-<?= $row['id']; ?>">
                                         Editar
                                     </button>
-                                    <form id="editaLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
+                                    <form action="gerenciar-lista.php" method="POST">
                                         <input type="hidden" name="opcao" value="removerLista">
                                         <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
                                         <button type="submit" id="remove-lista-<?= $row['id']; ?>" class="btn btn-danger button-delete">X</button>
@@ -100,7 +99,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
     </div>
 <?php if (!$data == null): ?>
     <?php foreach ($data as $row): ?>
-        <div class="modal fade form-edicao" id="edit-list-<?= $row['id']; ?>" tabindex="-1" role="dialog"
+        <div class="modal fade" id="edit-list-<?= $row['id']; ?>" tabindex="-1" role="dialog"
              aria-labelledby="editListModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -124,6 +123,85 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                 </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $('#editaLista-<?= $row['id']; ?>').submit(function (event) {
+                    event.preventDefault();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'gerenciar-lista.php',
+                        data: $('#editaLista-<?= $row['id']; ?>').serialize(),
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.status === 'sucesso') {
+                                toastr.options = {
+                                    progressBar: true,
+                                    timeOut: 1500
+                                };
+                                toastr.success('Sucesso<br>Lista alterada com sucesso');
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1500);
+                            } else {
+                                toastr.options = {
+                                    progressBar: true,
+                                    timeOut: 2000
+                                };
+                                toastr.error('Erro<br>' + data.status);
+                            }
+                        },
+                        error: function () {
+                            toastr.error('Erro<br>Erro interno do servidor, tente novamente mais tarde.');
+                        }
+                    });
+                });
+            });
+            document.getElementById("remove-lista-<?= $row['id']; ?>").addEventListener("click", (event) => {
+                event.preventDefault();
+                Swal.fire({
+                    title: "Tem certeza?",
+                    text: "Você está prestes a excluir essa lista",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sim, excluir!",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        event.target.form.submit();
+                    }
+                });
+            });
+        </script>
     <?php endforeach; ?>
 <?php endif; ?>
+    <script>
+
+        $(document).ready(function () {
+            $('#cadastroLista').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'gerenciar-lista.php',
+                    data: $('#cadastroLista').serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 'sucesso') {
+                            location.reload();
+                        } else {
+                            toastr.options = {
+                                progressBar: true,
+                                timeOut: 2000
+                            };
+                            toastr.error('Erro<br>' + data.status);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Erro<br>Erro interno do servidor, tente novamente mais tarde.');
+                    }
+                });
+            });
+        });
+    </script>
 <?php require_once 'footer.php'; ?>
