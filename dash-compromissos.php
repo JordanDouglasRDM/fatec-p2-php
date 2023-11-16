@@ -64,13 +64,12 @@ function reduzCaracter(string $var, int $maxCarac)
 
                                 </span>
                                 <span>
-                                    <form id="removeCompromisso-<?= $row['id']; ?>" action="gerenciar-compromissos.php"
-                                          method="POST">
+                                    <form id="removeCompromisso-<?= $row['id']; ?>" action="gerenciar-compromissos.php" method="POST">
                                         <input type="hidden" name="opcao" value="removerCompromisso">
                                         <input type="hidden" name="compromisso_id" value="<?= $row['id']; ?>">
                                         <button type="button" class="btn btn-danger button-delete-compromisso"
-                                                data-form-id="<?= $row['id']; ?>"><i class="fa-regular fa-trash-can"
-                                                                                     style="color: #ffffff;"></i>
+                                                data-form-id="<?= $row['id']; ?>">
+                                                <i class="fa-regular fa-trash-can" style="color: #ffffff;"></i>
                                         </button>
                                     </form>
                                 </span>

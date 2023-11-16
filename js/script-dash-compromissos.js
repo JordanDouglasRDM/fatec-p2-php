@@ -83,8 +83,8 @@ $(document).ready(function () {
         var formId = $(this).data('form-id');
 
         // Encontra o formulário correspondente ao ID
-        var form = "removeCompromisso-" + formId;
-        document.getElementById(form).addEventListener("click", (event) => {
+        var form2 = "removeCompromisso-" + formId;
+        document.getElementById(form2).addEventListener("click", (event) => {
             event.preventDefault();
             Swal.fire({
                 title: "Tem certeza?",
@@ -97,7 +97,8 @@ $(document).ready(function () {
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    event.target.form.submit();
+                    console.log(form2);
+                    document.getElementById(form2).submit();
                 }
             });
         });

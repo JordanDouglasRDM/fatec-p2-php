@@ -46,16 +46,31 @@ $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated
         ?>
     </span>
     </div>
-
-    <div class="container col-3" style="margin-bottom: 50px; margin-top: 10px">
-    <form class="wrapper" id="cadastroItem" action="gerenciar-itens.php" method="post">
-        <label for="nome" style="font-size: 20px;">Novo item:</label>
-        <input type="text" class="form-control" name="nome" id="nome" placeholder="Descrição do item"
-               required><br>
-        <input type="hidden" name="lista_id" value="<?= $lista_id ?>"><br>
-        <input type="hidden" name="opcao" value="adicionar">
-        <button type="submit" class="btn btn-success">Novo Item</button>
-    </form>
+    <button type="button" class="btn btn-outline-success col-1 button-new-item" data-toggle="modal" data-target="#novoItem">
+        Novo Item
+    </button>
+    <div class="modal fade" id="novoItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-new-item">
+                    <h5 class="modal-title" id="exampleModalLabel">Novo Item</h5>
+                    <button type="button" class="close button-close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="wrapper" id="cadastroItem" action="gerenciar-itens.php" method="post">
+                        <label for="nome" style="font-size: 15px;">Nome do Item:</label>
+                        <input type="text" class="form-control" name="nome" id="nome" placeholder="Descrição do item"
+                               required><br>
+                        <input type="hidden" name="lista_id" value="<?= $lista_id ?>"><br>
+                        <input type="hidden" name="opcao" value="adicionar">
+                        <button type="submit" class="btn btn-success">Adicionar Item</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <?php if ($data !== null): ?>
     <style>
@@ -130,7 +145,7 @@ $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated
                                             <input type="hidden" name="item" value="<?= $item['id'] ?>">
                                             <input type="hidden" name="opcao" value="marcarPendente">
                                             <input type="submit" class="btn btn-outline-warning"
-                                                   value="Marcar como pendente">
+                                                   value="Pendente">
                                         </form>
                                         <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
                                             <input type="hidden" name="item" value="<?= $item['id'] ?>">
@@ -144,7 +159,7 @@ $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated
                         <?php if ($dataItemConcluido == null): ?>
                             <td>Nenhum item concluido</td>
                             <td>
-                                <button class="btn btn-warning" disabled>Marcar como pendente</button>
+                                <button class="btn btn-warning" disabled>Pendente</button>
                                 <button class="btn btn-danger" disabled>X</button>
                             </td>
                         <?php endif; ?>

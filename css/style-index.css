@@ -1,18 +1,18 @@
 .container {
-position: absolute;
-transform: translate(-50%, -50%);
-margin-top: 50vh;
-margin-left: 50vw;
-width: 30vw;
-border-radius: 0.75rem;
-background-color: #427D9D;
-color: #DDF2FD;
-padding: 5vh 5vw;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    margin-top: 50vh;
+    margin-left: 50vw;
+    width: 30vw;
+    border-radius: 0.75rem;
+    background-color: #427D9D;
+    color: white;
+    padding: 5vh 5vw;
 }
+
 .button-login {
-    background-color: #DDF2FD; /* Green */
-    border: none;
-    color: #164863;
+    background-color: orange;
+    color: white;
     margin-left: 6vw;
     margin-top: 3vh;
     padding: 1vh 3vw;
@@ -20,9 +20,11 @@ padding: 5vh 5vw;
 }
 
 .button-login:hover {
-    background-color: #164863;
-    color: #DDF2FD;
+    color: white;
+    background-color: orangered;
+    border-color: orange;
 }
+
 p {
     font-size: 1vw;
     margin-top: 5vh;
@@ -30,7 +32,7 @@ p {
 }
 
 .register {
-    color: #164863;
+    color: orangered;
 }
 
 .register:hover {
@@ -40,10 +42,13 @@ p {
 h3 {
     text-align: center;
     margin-left: 0.5vw;
+    color: orange;
 }
+
 .email {
     margin-top: 6vh;
 }
+
 label {
     font-weight: bold;
 }
@@ -53,14 +58,14 @@ input {
 }
 
 .modal-container {
-margin-top: 1vh;
-margin-left: -9vw;
-width: 50vw;
-border-radius: 0.75rem;
-background-color: #427D9D;;
-color: #DDF2FD;
-padding: 5vh 5vw;
-position: relative;
+    margin-top: 1vh;
+    margin-left: -9vw;
+    width: 50vw;
+    border-radius: 0.75rem;
+    background-color: #427D9D;;
+    color: #DDF2FD;
+    padding: 5vh 5vw;
+    position: relative;
 }
 
 .button-register {
