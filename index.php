@@ -5,18 +5,15 @@ require_once 'header.php';
     <script src="js/script-index.js"></script>
     <div class="container">
         <form id="loginForm" action="gerenciar-usuario.php" method="post" class="">
-            <h3>Tasks and Appointments</h3>
+            <h3>ProTasker</h3>
             <label for="email" class="email">Email:</label><br>
-            <input class="form-control" type="email" name="email" id="email" required autofocus><br>
+            <input class="form-control" type="email" name="email" id="email" value="paulo@gmail.com" required autofocus><br>
             <label for="senha">Senha:</label><br>
-            <input class="form-control" type="password" name="senha" id="senha" required><br>
+            <input class="form-control" type="password" name="senha" id="senha" placeholder="Professor, sua senha é  'admin'" required><br>
             <input type="hidden" name="opcao" value="autenticarUsuario">
             <input type="submit" value="Entrar" class="btn button-login"><br><br>
         </form>
         <p>Ainda não possui uma conta ? <a href="" data-toggle="modal" data-target="#meuModal" class="register">Clique aqui.</a></p>
-        <!--<button type="button" class="btn btn-secondary" >
-            <a href=""></a>
-        </button>-->
     </div>
     
     <div class="modal fade" id="meuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

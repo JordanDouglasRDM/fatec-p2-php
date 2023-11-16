@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['user_id'])) {
     require_once 'repository.php';
     $dataUser = getUserById($_SESSION['user_id']);
-    echo '
+?>
 <style>
     .my-name {
         margin-right: 10%;
@@ -33,7 +33,7 @@ if (isset($_SESSION['user_id'])) {
     .item-link:hover {
         color: orange;
     }
-    
+
     .home {
         margin-left: -5vw;
     }
@@ -45,6 +45,8 @@ if (isset($_SESSION['user_id'])) {
         color: white;
     }
 </style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="home.php">ProTasker</a>
 <nav class="navbar navbar-expand-lg <!--navbar-dark bg-dark--> nav">
     <a class="navbar-brand nav-title" href="home.php">Gerenciador de Listas</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,11 +60,9 @@ if (isset($_SESSION['user_id'])) {
             <a class="nav-item nav-link item-link" href="dash-compromissos.php">Compromissos</a>
         </div>
     </div>
-    <p class="my-name">Olá, ' . $dataUser['nome'] . '</p>
+    <p class="my-name">Olá, <?= $dataUser['nome']; ?></p>
     <form class="form-inline">
-        <a href="logout.php" class="btn btn-outline-danger my-2 my-sm-0 button-exit" type="submit">Sair</a>
+        <a href="logout.php" class="btn btn-danger my-2 my-sm-0" type="submit">Sair</a>
     </form>
 </nav>
-
-';
-}
+<?php } ?>

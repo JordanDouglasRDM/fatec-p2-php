@@ -26,6 +26,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                         </button>
                     </div>
                     <div class="modal-body">
+
                     </div>
                 </div>
             </div>
@@ -62,7 +63,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                                     <button type="button" class="btn button-edit-items" data-toggle="modal" data-target="#edit-list-<?= $row['id']; ?>">
                                         Editar
                                     </button>
-                                    <form id="editaLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
+                                    <form id="removeLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
                                         <input type="hidden" name="opcao" value="removerLista">
                                         <input type="hidden" name="lista_id" value="<?= $row['id']; ?>">
                                         <button type="submit" id="remove-lista-<?= $row['id']; ?>" class="btn btn-danger button-delete">X</button>
@@ -112,7 +113,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="editaLista-<?= $row['id']; ?>" action="" method="POST">
+                        <form id="editaLista-<?= $row['id']; ?>" action="gerenciar-lista.php" method="POST">
                             <input type="text" class="form-control" id="titulo" name="titulo"
                                    value="<?= $row['titulo']; ?>">
                             <br><br>
