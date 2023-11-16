@@ -11,7 +11,7 @@ require_once 'header.php';
             <label for="senha">Senha:</label><br>
             <input class="form-control" type="password" name="senha" id="senha" required><br>
             <input type="hidden" name="opcao" value="autenticarUsuario">
-            <input type="submit" value="Entrar" class="btn btn-primary button-login"><br><br>
+            <input type="submit" value="Entrar" class="btn button-login"><br><br>
         </form>
         <p>Ainda não possui uma conta ? <a href="" data-toggle="modal" data-target="#meuModal" class="register">Clique aqui.</a></p>
         <!--<button type="button" class="btn btn-secondary" >
