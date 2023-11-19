@@ -12,6 +12,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
     <script src="js/script-dash-listas.js"></script>
     <link rel="stylesheet" href="css/style-dash-listas.css">
     <div class="title-page">
+        <i class="fa-regular fa-calendar-check" style="color: #000000;"></i>
         Minhas Anotações
     </div>
     <br><br><br>
@@ -35,9 +36,10 @@ $data = getAllListByIdUser($_SESSION['user_id']);
     <?php endforeach; ?>
 <?php endif; ?>
 
-    <button type="button" class="btn btn-success buttonNovaLista col-1 button-new-list" data-toggle="modal"
+    <button type="button" class="btn btn-success col-1 button-new-list" data-toggle="modal"
             data-target="#itensLista">
-        Nova lista
+        <i class="fa-solid fa-plus" style="color: #ffffff;"></i>
+        Adicionar lista
     </button>
     <br><br>
 <div class="scrollbar">

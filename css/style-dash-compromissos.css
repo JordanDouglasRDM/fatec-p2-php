@@ -6,8 +6,6 @@ html {
     overflow-y: auto;
     overflow-x: hidden;
 }
-.div-base {
-}
 .containerCards {
     margin-top: 20vh;
     position: absolute;
@@ -63,12 +61,12 @@ html {
 }
 .title-page {
     text-align: center;
+    margin-top: 2vh;
     font-size: 25px;
-    margin-top: 50px;
 }
-.buttonNewList{
+.buttonNewCompromisso{
     margin-top: 60px;
-    margin-left: 44vw;
+    margin-left: 45.5vw;
 }
 .header-modal {
     background-color: #164863;

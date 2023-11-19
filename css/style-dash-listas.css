@@ -4,7 +4,6 @@ html {
 .title-page {
     text-align: center;
     margin-top: 2vh;
-    font-weight: bold;
     font-size: 25px;
 }
 .button-new-list {
@@ -38,10 +37,17 @@ html {
     transform: translate(-50%, -50%);
     width: 95vw;
 }
+.div-base {
+    padding-top: 15px;
+}
 .card {
     margin-bottom: 6vh;
     width: 16vw;
     background-color: #DDF2FD;
+    transition: transform 0.3s ease-in-out;
+}
+.card:hover {
+    transform: translate(0, -10px);
 }
 .card-body {
     width: 10vw;

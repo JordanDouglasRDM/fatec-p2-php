@@ -23,7 +23,7 @@ function reduzCaracter(string $var, int $maxCarac)
         <i class="fa-regular fa-calendar-check" style="color: #000000;"></i>
         Meus compromissos
     </div>
-    <button type="button" class="btn btn-success buttonNewList" data-toggle="modal"
+    <button type="button" class="btn btn-success buttonNewCompromisso" data-toggle="modal"
             data-target="#novoCompromisso">
         <i class="fa-solid fa-plus" style="color: #ffffff;"></i> Adicionar compromisso
     </button>
