@@ -9,7 +9,6 @@
     color: white;
     padding: 5vh 5vw;
 }
-
 .button-login {
     background-color: orange;
     color: white;
@@ -18,67 +17,42 @@
     padding: 1vh 3vw;
     font-weight: bold;
 }
-
 .button-login:hover {
     color: white;
     background-color: orangered;
-    border-color: orange;
 }
-
 p {
     font-size: 1vw;
     margin-top: 5vh;
     font-weight: bold;
 }
-
 .register {
-    color: orangered;
+    color: orange;
 }
-
 .register:hover {
+    color: orange
+}
+.modal-new-user {
+    background-color: #164863;
     color: #DDF2FD;
 }
-
 h3 {
     text-align: center;
     margin-left: 0.5vw;
     color: orange;
 }
-
 .email {
     margin-top: 6vh;
 }
-
 label {
     font-weight: bold;
 }
-
 input {
     color: #164863;
 }
-
-.modal-container {
-    margin-top: 1vh;
-    margin-left: -9vw;
-    width: 50vw;
-    border-radius: 0.75rem;
-    background-color: #427D9D;;
-    color: #DDF2FD;
-    padding: 5vh 5vw;
-    position: relative;
-}
-
 .button-register {
-    background-color: #164863;
     border: none;
-    color: #DDF2FD;
-    margin-left: 12vw;
+    margin-left: 10vw;
     margin-top: 3vh;
-    padding: 1vh 5vw;
-    font-weight: bold;
-}
-
-.button-register:hover {
-    background-color: #DDF2FD;
-    color: #164863;
+    padding: 1vh 3vw;
 }

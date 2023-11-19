@@ -13,40 +13,19 @@ $dataItemPendente = getAllItemWithValidation($lista_id, 'status', '0', 'created_
 $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated_at', 'desc');
 ?>
     <script src="js/script-dash-itens.js"></script>
-    <style>
-        .div-tituloLista {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 50px;
-            font-size: 30px;
-            padding-left: 20px;
-            padding-right: 20px;
-        }
+    <link rel="stylesheet" href="css/style-dash-itens.css">
 
-        .voltar {
-            margin-right: 10px;
-        }
-
-        .tituloLista {
-            text-align: center;
-            flex-grow: 1;
-        }
-    </style>
-
-    <div class="div-tituloLista">
-    <span class="voltar">
+    <span class="return">
         <a href="dash-listas.php">
-            <i class="fa-solid fa-arrow-left" style="color: #000000;"></i>
+            <i class="fa-solid fa-arrow-left fa-2x" style="color: #000000;"></i>
         </a>
     </span>
-        <span class="tituloLista">
+        <span class="title-list">
         <?php
         echo $_POST['titulo'];
         ?>
     </span>
-    </div>
-    <button type="button" class="btn btn-outline-success col-1 button-new-item" data-toggle="modal" data-target="#novoItem">
+    <button type="button" class="btn btn-success col-1 button-new-item" data-toggle="modal" data-target="#novoItem">
         Novo Item
     </button>
     <div class="modal fade" id="novoItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,18 +52,9 @@ $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated
     </div>
 </div>
 <?php if ($data !== null): ?>
-    <style>
-        .meuContainer {
-            display: flex;
-        }
-        .max-height {
-            max-height: 450px;
-            overflow-y: auto;
-        }
-    </style>
     <div class="meuContainer container w-100">
         <div class="row w-100">
-            <div class="" style="width: 50%">
+            <div style="width: 50%; margin-top: 5vh; background-color: #DDF2FD; border-radius: 10px;">
                 <h3>Itens pendentes:</h3>
                 <div class="max-height">
                     <table class="table table-hover">
@@ -103,7 +73,7 @@ $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated
                                         <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
                                             <input type="hidden" name="item" value="<?= $item['id'] ?>">
                                             <input type="hidden" name="opcao" value="marcarConcluido">
-                                            <input type="submit" class="btn btn-outline-success" value="Concluir">
+                                            <input type="submit" class="btn btn-outline-success button-conclude" value="Concluir">
                                         </form>
                                         <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
                                             <input type="hidden" name="item" value="<?= $item['id'] ?>">
@@ -125,14 +95,14 @@ $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated
                     </table>
                 </div>
             </div>
-            <div class="" style="width: 50%">
+            <div style="width: 50%; margin-top: 5vh; background-color: #DDF2FD; border-radius: 10px;">
                 <h3>Itens concluídos:</h3>
                 <div class="max-height">
                     <table class="table table-hover">
                         <thead>
                         <tr>
                             <th>Nome</th>
-                            <th class="">Ação</th>
+                            <th>Ação</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -144,8 +114,7 @@ $dataItemConcluido = getAllItemWithValidation($lista_id, 'status', '1', 'updated
                                         <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
                                             <input type="hidden" name="item" value="<?= $item['id'] ?>">
                                             <input type="hidden" name="opcao" value="marcarPendente">
-                                            <input type="submit" class="btn btn-outline-warning"
-                                                   value="Pendente">
+                                            <input type="submit" class="btn btn-outline-warning button-pending" value="Pendente">
                                         </form>
                                         <form id="alterarItemForm_<?= $item['id'] ?>" action="" method="post">
                                             <input type="hidden" name="item" value="<?= $item['id'] ?>">

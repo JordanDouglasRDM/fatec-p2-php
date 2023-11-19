@@ -1,164 +1,85 @@
-@media screen and (min-width:1290px) and (max-width: 1920px){
-    .title-list {
-        width: 40vw;
-        text-align: center;
-        margin-top: 5vh;
-        margin-left: 28vw;
-        margin-bottom: 8vh;
-        font-size: 2vw;
-        font-weight: bold;
-        overflow-wrap: break-word;
-    }
-    .button-new-item {
-        margin-left: 44vw;
-        margin-top: 0vh;
-        margin-bottom: 5vh;
-    }
-    .modal-new-item {
-        background-color: #164863;
-        color: #DDF2FD;
-    }
-    .button-close {
-        color: #DDF2FD;
-    }
-    .button-close:hover {
-        color: #DDF2FD;
-    }
-    .meuContainer {
-        display: flex;
-        margin-left: 13vw;
-        margin-right: 10vw;
-        background-color: #DDF2FD;
-        border-radius: 10px;
-    }
-    .scrollbar {
-        max-height: 50vh;
-        overflow-y: auto;
-        overflow-x: hidden;
-        margin-right: 14vw;
-    }
-    ::-webkit-scrollbar-track {
-        background-color: #164863;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: linear-gradient(to right, green, orange);
-        border-radius: 6px;
-    }
-    ::-webkit-scrollbar {
-        width: 12px; /* Largura da barra de rolagem */
-    }
-    .max-height {
-        max-height: 450px;
-        overflow-y: auto;
-        
-    }
-    .button-conclude {
-        margin-right: 2vw;
-        margin-left: 2vw;
-    }
-    .button-conclude:active {
-        background-color: transparent;
-    }
-    .button-pending {
-        margin-right: 2vw;
-        margin-left: 2vw;
-        background-color: orange;
-        color: white;
-        border-color: white;
-    }
-    .button-pending:hover {
-        color: white;
-        background-color: orangered;
-        border-color: orange;
-    }
-    .button-pending:active {
-        background-color: transparent;
-        border-color: transparent;
-    }
-    h3 {
-        margin-left: 12vw;
-    }
+.title-list {
+    width: 20vw;
+    text-align: center;
+    margin-top: -8vh;
+    margin-left: 45vw;
+    margin-bottom: 5vh;
+    font-size: 2vw;
+    font-weight: bold;
+    overflow-wrap: break-word;
+    display: flex;
+}
+.return {
+    display: flex;
+    margin-top: 5vh;
+    margin-left: 13vw;
+}
+.button-new-item {
+    display: flex;
+    margin-left: 44vw;
+    margin-bottom: 2vh;
+    padding: 0vh 2vw;
+    text-align: center;
+}
+.modal-new-item {
+    background-color: #164863;
+    color: #DDF2FD;
+}
+.button-close {
+    color: #DDF2FD;
+}
+.button-close:hover {
+    color: #DDF2FD;
+}
+.meuContainer {
+    display: flex;
+}
+::-webkit-scrollbar-track {
+    background-color: gainsboro;
+}
+::-webkit-scrollbar-thumb {
+    background: #164863;
+    border-radius: 6px;
+}
+::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
+.max-height {
+    max-height: 450px;
+    overflow-y: auto;
+}
+.button-conclude {
+    margin-right: 1vw;
+    background-color: #427D9D;
+    color: white;
+    border: transparent;
+}
+.button-conclude:hover {
+    background-color: #164863;
+    border-color: transparent;
+}
+.button-conclude:active {
+    background-color: #164863;
+    border-color: #164863;
+}
+.button-pending {
+    margin-right: 2vw;
+    margin-left: 2vw;
+    background-color: orange;
+    color: white;
+    border-color: transparent;
+}
+.button-pending:hover {
+    color: white;
+    background-color: orangered;
+    border-color: transparent;
+}
+.button-pending:active {
+    background-color: orangered;
+    border-color: orangered;
+}
+h3 {
+    margin-left: 12vw;
 }
 
-@media screen and (min-width:600px) and (max-width: 1289px){
-    .title-list {
-        width: 40vw;
-        text-align: center;
-        margin-top: 5vh;
-        margin-left: 28vw;
-        margin-bottom: 10vh;
-        font-size: 2vw;
-        font-weight: bold;
-        overflow-wrap: break-word;
-    }
-    .button-new-item {
-        margin-left: 44vw;
-        margin-top: 0vh;
-        margin-bottom: 10vh;
-    }
-    .modal-new-item {
-        background-color: #164863;
-        color: #DDF2FD;
-    }
-    .button-close {
-        color: #DDF2FD;
-    }
-    .button-close:hover {
-        color: #DDF2FD;
-    }
-    .meuContainer {
-        display: flex;
-        margin-left: 13vw;
-        margin-right: 10vw;
-        background-color: #DDF2FD;
-        border-radius: 10px;
-    }
-    .scrollbar {
-        max-height: 50vh;
-        overflow-y: auto;
-        overflow-x: hidden;
-        margin-right: 14vw;
-    }
-    ::-webkit-scrollbar-track {
-        background-color: #164863;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: linear-gradient(to right, green, orange);
-        border-radius: 6px;
-    }
-    ::-webkit-scrollbar {
-        width: 12px; /* Largura da barra de rolagem */
-    }
-    .max-height {
-        max-height: 450px;
-        overflow-y: auto;
-        
-    }
-    .button-conclude {
-        margin-right: 2vw;
-        margin-left: 2vw;
-      
-    }
-    .button-conclude:active {
-        background-color: transparent;
-    }
-    .button-pending {
-        margin-right: 2vw;
-        margin-left: 2vw;
-        background-color: orange;
-        color: white;
-        border-color: white;
-    }
-    .button-pending:hover {
-        color: white;
-        background-color: orangered;
-        border-color: orange;
-    }
-    .button-pending:active {
-        background-color: transparent;
-        border-color: transparent;
-    }
-    h3 {
-        margin-left: 12vw;
-    }
-}
+

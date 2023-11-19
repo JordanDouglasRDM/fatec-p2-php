@@ -1,59 +1,63 @@
-
 html {
     overflow-y: hidden;
 }
-
 .max-height {
-    max-height: 500px;
+    max-height: 90vh;
     overflow-y: auto;
-    overflow-x: auto;
+    overflow-x: hidden;
 }
-
 .div-base {
 }
-
 .containerCards {
     margin-top: 20vh;
     position: absolute;
-    top: 50vh;
+    top: 48vh;
+    bottom: -25vh;
     left: 50vw;
     transform: translate(-50%, -50%);
-    width: 95vw;
-
+    width: 90vw;
 }
-
+::-webkit-scrollbar-track {
+    background-color: gainsboro;
+}
+::-webkit-scrollbar-thumb {
+    background: #164863;
+    border-radius: 6px;
+}
+::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
 .card {
     background-color: #EEF5FF;
     margin-bottom: 6vh;
     width: 200px;
     transition: transform 0.3s ease-in-out;
 }
-
 .card:hover {
     transform: translate(0, -10px);
 }
-
 .card-header {
-    background-color: #87C4FF;
-    color: #362e2e;
+    background-color: #427D9D;
+    color: white;
 }
-
+.button-close {
+    color: white;
+}
+.button-close:hover {
+    color: white;
+}
 .card-footer {
     background-color: #CDCDCD;
 }
-
 .card-body {
     width: auto;
     height: auto;
     margin-left: 1.2vw;
     margin-bottom: 2vh;
 }
-
-
 .botao-rodape-view {
     margin-right: 10px;
 }
-
 .div-base {
     padding-top: 15px;
 }
@@ -62,13 +66,38 @@ html {
     font-size: 25px;
     margin-top: 50px;
 }
-.buttonNovaLista {
-    margin-left: 40px;
+.buttonNewList{
     margin-top: 60px;
-    /*position: absolute;*/
-    /*top: 15%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
-    /*width: 90%;*/
+    margin-left: 44vw;
 }
-
+.header-modal {
+    background-color: #164863;
+    color: white;
+}
+.button-save-edit {
+    margin-left: 12vw;
+}
+.button-view-items {
+    background-color: #135db8;
+    color: white;
+}
+.button-view-items:hover {
+    background-color: #006196;
+    border-color: white;
+    color: white;
+}
+.button-edit {
+    margin-left: 13vw;
+    margin-right: 0.5vw;
+    background-color: orange;
+    color: black;
+    border-color: white;
+    height: 5vh;
+    width: 5vw;
+    font-size: 0.8vw;
+}
+.button-edit:hover {
+    background-color: orangered;
+    color: black;
+    border-color: white;
+}

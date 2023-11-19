@@ -23,7 +23,7 @@ function reduzCaracter(string $var, int $maxCarac)
         <i class="fa-regular fa-calendar-check" style="color: #000000;"></i>
         Meus compromissos
     </div>
-    <button type="button" class="btn btn-success buttonNovaLista" data-toggle="modal"
+    <button type="button" class="btn btn-success buttonNewList" data-toggle="modal"
             data-target="#novoCompromisso">
         <i class="fa-solid fa-plus" style="color: #ffffff;"></i> Adicionar compromisso
     </button>
@@ -143,9 +143,9 @@ function reduzCaracter(string $var, int $maxCarac)
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header header-modal">
                         <h5 class="modal-title" id="editListModalLabel">Editar Compromisso</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <button type="button" class="close button-close" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -190,7 +190,7 @@ function reduzCaracter(string $var, int $maxCarac)
                             <br>
                             <input type="hidden" name="opcao" value="editaCompromisso">
                             <input type="hidden" name="compromisso_id" value="<?= $row['id']; ?>">
-                            <button type="submit" class="btn btn-success button-edit-compromissos open-edit-modal"
+                            <button type="submit" class="btn btn-success button-edit-compromissos open-edit-modal button-save-edit"
                                     data-form-id="<?= $row['id']; ?>">
                                 Salvar Edições
                             </button>
@@ -210,9 +210,9 @@ function reduzCaracter(string $var, int $maxCarac)
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header header-modal">
                         <h5 class="modal-title" id="viewCompromisso">Visualizar Compromisso</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <button type="button" class="close button-close" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -255,7 +255,7 @@ function reduzCaracter(string $var, int $maxCarac)
                                    disabled><br>
                         </div>
                         <br>
-                        <button type="button" class="btn btn-warning button-edit-items open-edit-modal"
+                        <button type="button" class="btn btn-warning button-edit-items open-edit-modal button-edit"
                                 data-form-id="<?= $row['id']; ?>">
                             Editar
                         </button>

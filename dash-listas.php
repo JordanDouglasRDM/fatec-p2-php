@@ -12,7 +12,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
     <script src="js/script-dash-listas.js"></script>
     <link rel="stylesheet" href="css/style-dash-listas.css">
     <div class="title-page">
-        Minhas anotações
+        Minhas Anotações
     </div>
     <br><br><br>
 <?php if ($data !== null): ?>
@@ -35,7 +35,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
     <?php endforeach; ?>
 <?php endif; ?>
 
-    <button type="button" class="btn btn-outline-success buttonNovaLista col-1" data-toggle="modal"
+    <button type="button" class="btn btn-success buttonNovaLista col-1 button-new-list" data-toggle="modal"
             data-target="#itensLista">
         Nova lista
     </button>
@@ -53,8 +53,8 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                     <div class="col-sm-2">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"><?= $row['titulo']; ?></h5>
-                                <p class="card-text con-pen">Pendente/Concluido (<?= $dataCount[0]['pendente']; ?>
+                                <h5 class="title-card"><?= $row['titulo']; ?></h5>
+                                <p class="card-text con-pen">Pendente/Concluído (<?= $dataCount[0]['pendente']; ?>
                                     /<?= $dataCount[0]['concluido']; ?>)</p>
                                 <div class="container d-flex">
                                     <form class="mr-2" action="dash-itens.php" method="post">
@@ -114,7 +114,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
                 <div class="modal-content">
                     <div class="modal-header moda-new-list">
                         <h5 class="modal-title" id="editListModalLabel">Editar título da lista</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <button type="button" class="close button-close" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>

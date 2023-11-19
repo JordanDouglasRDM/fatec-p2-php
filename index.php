@@ -13,14 +13,14 @@ require_once 'header.php';
             <input type="hidden" name="opcao" value="autenticarUsuario">
             <input type="submit" value="Entrar" class="btn btn-primary button-login"><br><br>
         </form>
-        <p>Ainda não possui uma conta ? <a href="" data-toggle="modal" data-target="#meuModal" class="register">Clique aqui.</a></p>
+        <p>Ainda não possui uma conta ? <a href="" data-toggle="modal" data-target="#meuModal" class="register">Clique aqui</a></p>
     </div>
     
     <div class="modal fade" id="meuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-container">
-                <div class="modal-header">
+                <div class="modal-header modal-new-user">
                     <h5 class="modal-title" id="exampleModalLabel">Adicionar Novo Usuário</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
@@ -43,7 +43,7 @@ require_once 'header.php';
                                    required>
                         </div>
                         <input type="hidden" name="opcao" value="adicionarUsuario">
-                        <button type="submit" class="btn btn-primary button-register">Cadastrar</button>
+                        <button type="submit" class="btn btn-success button-register">Cadastrar</button>
                     </form>
                 </div>
             </div>
