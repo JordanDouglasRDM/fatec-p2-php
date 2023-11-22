@@ -17,7 +17,6 @@ function getUserByEmail(string $email)
         return null;
     }
 }
-
 function addUser(array $data)
 {
     global $conn;
@@ -35,6 +34,50 @@ function addLista(array $data)
     $query = 'INSERT INTO listas (titulo, user_id) VALUES (?,?);';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('ss', $data['titulo'], $data['user_id']);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
+function updateUser(int $user_id, array $data)
+{
+    global $conn;
+
+    if (empty($data['foto_perfil'])) {
+        $query = "UPDATE users SET nome = ?, email = ?, senha = ? WHERE id = ?";
+        $stmt = $conn->prepare($query);
+
+        $stmt->bind_param('sssi', $data['nome'], $data['email'], $data['senha'], $user_id);
+    } else {
+        $query = "UPDATE users SET nome = ?, email = ?, senha = ?, foto_perfil = ? WHERE id = ?";
+        $stmt = $conn->prepare($query);
+
+        $stmt->bind_param('ssssi', $data['nome'], $data['email'], $data['senha'], $data['foto_perfil'], $user_id);
+    }
+
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+function updateUserByField(int $user_id, string $field, string $value)
+{
+    global $conn;
+    $query = "UPDATE users SET $field = ? WHERE id = ?";
+    $stmt = $conn->prepare($query);
+
+    $stmt->bind_param('si', $value,$user_id);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
+function removeFotoPerfil(int $user_id)
+{
+    global $conn;
+    $query = "UPDATE users SET foto_perfil = null WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $user_id);
+
     $result = $stmt->execute();
     $stmt->close();
     return $result;
@@ -75,6 +118,7 @@ function getAllListByIdUser(int $id)
         return null;
     }
 }
+
 function addItem(array $data)
 {
     global $conn;
@@ -86,6 +130,7 @@ function addItem(array $data)
     $stmt->close();
     return $result;
 }
+
 function getAllItemByListId(int $lista_id)
 {
     global $conn;
@@ -103,6 +148,7 @@ function getAllItemByListId(int $lista_id)
         return null;
     }
 }
+
 function getAllItemWithValidation(int $lista_id, string $field, string $valor, string $orderBy, string $orderDirection)
 {
     global $conn;
@@ -120,32 +166,35 @@ function getAllItemWithValidation(int $lista_id, string $field, string $valor, s
         return null;
     }
 }
+
 function tornarConcluidoItem(int $item_id)
 {
     global $conn;
     $query = 'UPDATE itens SET status = 1 WHERE id = ?';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('i',$item_id);
+    $stmt->bind_param('i', $item_id);
     $result = $stmt->execute();
     $stmt->close();
     return $result;
 }
+
 function tornarPendenteItem(int $item_id)
 {
     global $conn;
     $query = 'UPDATE itens SET status = 0 WHERE id = ?';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('i',$item_id);
+    $stmt->bind_param('i', $item_id);
     $result = $stmt->execute();
     $stmt->close();
     return $result;
 }
+
 function exluirItem(int $item_id)
 {
     global $conn;
     $query = 'DELETE FROM itens WHERE id = ?';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('i',$item_id);
+    $stmt->bind_param('i', $item_id);
     $result = $stmt->execute();
     $stmt->close();
     return $result;
@@ -182,6 +231,7 @@ function deleteListById(int $lista_id)
     }
     return null;
 }
+
 function countItensByIdList(int $lista_id)
 {
     global $conn;
@@ -205,10 +255,11 @@ function countItensByIdList(int $lista_id)
         return null;
     }
 }
+
 function getUserById(int $id)
 {
     global $conn;
-    $query = 'SELECT id, nome, email FROM users WHERE id = ?;';
+    $query = 'SELECT * FROM users WHERE id = ?;';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $id);
     $stmt->execute();
@@ -223,6 +274,7 @@ function getUserById(int $id)
         return null;
     }
 }
+
 function addCompromisso(array $data)
 {
     global $conn;
@@ -233,6 +285,7 @@ function addCompromisso(array $data)
     $stmt->close();
     return $result;
 }
+
 function getCompromissoByName(string $name, int $user_id)
 {
     global $conn;
@@ -253,6 +306,7 @@ function getCompromissoByName(string $name, int $user_id)
         return null;
     }
 }
+
 function getAllCompromissoByIdUser(int $user_id)
 {
     global $conn;
@@ -270,6 +324,7 @@ function getAllCompromissoByIdUser(int $user_id)
         return null;
     }
 }
+
 function updateCompromisso(int $compromisso_id, array $data)
 {
     global $conn;
@@ -280,6 +335,7 @@ function updateCompromisso(int $compromisso_id, array $data)
     $stmt->close();
     return $result;
 }
+
 function removeCompromisso(int $compromisso_id)
 {
     global $conn;

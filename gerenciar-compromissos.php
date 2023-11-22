@@ -53,12 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'data' => $datas,
                 'hora' => $hora
             ];
-            $dataUser = getCompromissoByName($nome, $user_id);
-            if (!is_null($dataUser) && array_diff_assoc($data, $dataUser) === []) {
+            $dataCompromisso = getCompromissoByName($nome, $user_id);
+            if (!is_null($dataCompromisso) && array_diff_assoc($data, $dataCompromisso) === []) {
                 echo json_encode(['status' => 'aviso']);
                 exit();
             } else {
-                if ($dataUser == null || $compromisso_id == $dataUser['id']) {
+                if ($dataCompromisso == null || $compromisso_id == $dataCompromisso['id']) {
                     $result = updateCompromisso($compromisso_id, $data);
                     if ($result) {
                         echo json_encode(['status' => 'sucesso']);

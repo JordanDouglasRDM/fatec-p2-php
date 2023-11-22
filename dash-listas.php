@@ -36,7 +36,7 @@ $data = getAllListByIdUser($_SESSION['user_id']);
     <?php endforeach; ?>
 <?php endif; ?>
 
-    <button type="button" class="btn btn-success col-1 button-new-list" data-toggle="modal"
+    <button type="button" class="btn btn-success sm-col-2 button-new-list" data-toggle="modal"
             data-target="#itensLista">
         <i class="fa-solid fa-plus" style="color: #ffffff;"></i>
         Adicionar lista
