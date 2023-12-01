@@ -2,7 +2,7 @@
 require_once 'repository.php';
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php");
+    echo '<meta http-equiv="refresh" content="0;url=index.php">';
     exit();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else if ($opcao == 'excluir') {
         try {
             $item_id = $_POST['item'];
-            exluirItem($item_id);
+            removeItem($item_id);
             $result = array('status' => 'sucesso');
             echo json_encode($result);
         } catch (Exception $e) {

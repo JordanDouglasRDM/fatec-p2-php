@@ -2,7 +2,7 @@
 require_once 'repository.php';
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php");
+    echo '<meta http-equiv="refresh" content="0;url=index.php">';
     exit();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

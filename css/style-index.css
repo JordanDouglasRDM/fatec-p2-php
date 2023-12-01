@@ -56,3 +56,11 @@ input {
     margin-top: 3vh;
     padding: 1vh 3vw;
 }
+.esqueci_senha {
+    text-align: center;
+    color: orange;
+    font-weight: bold;
+}
+.esqueci_senha:hover {
+    color: orange;
+}

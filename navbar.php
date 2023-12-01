@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id']) || $_SESSION['status'] == 'ativo') {
     require_once 'repository.php';
     $dataUser = getUserById($_SESSION['user_id']);
     if ($dataUser['foto_perfil'] !== null) {
@@ -25,6 +25,9 @@ if (isset($_SESSION['user_id'])) {
                             class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link item-link" href="dash-listas.php">Anotações</a>
                 <a class="nav-item nav-link item-link" href="dash-compromissos.php">Compromissos</a>
+                <?php if ($dataUser['nivel'] == 'admin'): ?>
+                    <a class="nav-item nav-link item-link" href="dash-usuarios.php">Usuarios</a>
+                <?php endif; ?>
             </div>
         </div>
         <div class="container">

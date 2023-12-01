@@ -1,0 +1,22 @@
+.table-container {
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+/* Fixa o cabeçalho da tabela enquanto rola o conteúdo */
+.table-container thead {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff; /* Cor de fundo para o cabeçalho fixo, altere conforme necessário */
+    z-index: 2;
+}
+table {
+    padding-top: 10px;
+}
+.title {
+    margin-top: 1%;
+    margin-bottom: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

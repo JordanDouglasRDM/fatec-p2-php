@@ -97,7 +97,6 @@ $(document).ready(function () {
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    console.log(form2);
                     document.getElementById(form2).submit();
                 }
             });

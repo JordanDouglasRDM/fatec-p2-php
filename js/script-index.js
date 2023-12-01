@@ -12,10 +12,20 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.status === 'sucesso') {
+                    toastr.options = {
+                        progressBar: true,
+                        timeOut: 1500
+                    }
                     toastr.success('Sucesso<br>Sucesso ao realizar o login.');
                     setTimeout(function () {
                         window.location.href = 'home.php';
-                    }, 2000);
+                    }, 1500);
+                } else if (data.status === 'inativo') {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops... Seu usuário está inativo!",
+                        text: "Entre em contato com o administrador do seu sistema.",
+                    });
                 } else {
                     toastr.error('Erro<br>' + data.status);
                 }
@@ -50,3 +60,11 @@ $(document).ready(function () {
         });
     });
 });
+function esqueciSenha()
+{
+    Swal.fire({
+        icon: "question",
+        title: "Alterar senha?",
+        text: "Entre em contato com o administrador do seu sistema.",
+    });
+}

@@ -1,4 +1,10 @@
-<!doctype html>
+<?php
+session_start();
+if (isset($_SESSION['autenticado'])) {
+    echo '<meta http-equiv="refresh" content="0;url=home.php">';
+    exit();
+}
+?><!doctype html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +22,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/9f50e2463f.js" crossorigin="anonymous"></script>
-
 </head>
 <style>
     head, body {
@@ -30,13 +35,14 @@
         <form id="loginForm" action="gerenciar-usuario.php" method="post" class="">
             <h3>ProTasker</h3>
             <label for="email" class="email">Email:</label><br>
-            <input class="form-control" type="email" name="email" id="email" value="paulo@gmail.com" required autofocus><br>
+            <input class="form-control" type="email" name="email" id="email" value="paulo@gmail.com" required><br>
             <label for="senha">Senha:</label><br>
-            <input class="form-control" type="password" name="senha" id="senha" placeholder="Professor, sua senha é  'admin'" required><br>
+            <input class="form-control" type="password" name="senha" id="senha" placeholder="Professor, sua senha é  'admin'" autofocus required><br>
             <input type="hidden" name="opcao" value="autenticarUsuario">
             <input type="submit" value="Entrar" class="btn btn-primary button-login"><br><br>
         </form>
         <p>Ainda não possui uma conta ? <a href="" data-toggle="modal" data-target="#meuModal" class="register">Clique aqui</a></p>
+        <a onclick="esqueciSenha()" class="esqueci_senha">Esqueci minha senha</a>
     </div>
     
     <div class="modal fade" id="meuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -46,24 +52,22 @@
                 <div class="modal-header modal-new-user">
                     <h5 class="modal-title" id="exampleModalLabel">Adicionar Novo Usuário</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" style="color: white">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form id="cadastroUserForm" action="gerenciar-usuario.php" method="post">
                         <div class="form-group">
                             <label for="nome">Nome</label>
-                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome"
-                                   required autofocus>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Fulano da Silva" required>
                         </div>
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Seu e-mail" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="teste@example.com" required>
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha</label>
-                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha"
-                                   required>
+                            <input type="password" class="form-control" id="senha" name="senha" placeholder="********" required>
                         </div>
                         <input type="hidden" name="opcao" value="adicionarUsuario">
                         <button type="submit" class="btn btn-success button-register">Cadastrar</button>

@@ -29,22 +29,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         }
     } elseif ($opcao == 'autenticarUsuario') {
-        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-        $senha = filter_input(INPUT_POST, 'senha');
 
-        $usuarioData = getUserByEmail($email);
-        if ($usuarioData !== null) {
-            if (password_verify($senha, $usuarioData['senha'])) {
-                session_start();
-                $_SESSION['user_id'] = $usuarioData['id'];
-                echo json_encode(array('status' => 'sucesso'));
-                exit();
+        try {
+            $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+            $senha = filter_input(INPUT_POST, 'senha');
+
+            $usuarioData = getUserByEmail($email);
+            if ($usuarioData !== null) {
+                if (password_verify($senha, $usuarioData['senha'])) {
+                    if ($usuarioData['status'] == 'ativo') {
+                        session_start();
+                        $_SESSION['user_id'] = $usuarioData['id'];
+                        $_SESSION['nivel'] = $usuarioData['nivel'];
+                        $_SESSION['status'] = $usuarioData['status'];
+                        $_SESSION['autenticado'] = true;
+                        echo json_encode(array('status' => 'sucesso'));
+                        exit();
+                    } else {
+                        echo json_encode(['status' => 'inativo']);
+                        exit();
+                    }
+                } else {
+                    throw new Exception('Usuário ou senha inválidos.');
+                }
             } else {
-                echo json_encode(array('status' => 'Usuário ou senha inválidos.'));
-                exit();
+                throw new Exception('Usuário ou senha inválidos.');
             }
-        } else {
-            echo json_encode(array('status' => 'Usuário ou senha inválidos.'));
+        } catch (Exception $e) {
+            echo json_encode(['status' => $e->getMessage()]);
             exit();
         }
     } elseif ($opcao == 'editarPerfil') {
@@ -102,6 +114,91 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 throw new Exception('Falha ao remover a foto do perfil, tente novamente mais tarde.');
             }
+        } catch (Exception $e) {
+            echo json_encode(['status' => $e->getMessage()]);
+            exit();
+        }
+    } elseif ($opcao == 'removeUsuario') {
+        try {
+            session_start();
+            $my_id = $_SESSION['user_id'];
+            $qtyAdmin = 0;
+
+            $user_id = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);
+            $dataUser = getAllUsers();
+            foreach ($dataUser as $user) {
+                if ($user['nivel'] == 'admin' && $user['id'] != $my_id)
+                    $qtyAdmin++;
+            }
+            if ($qtyAdmin == 0 && $user_id == $my_id) {
+                throw new Exception('Você não pode excluir o único admin, conceda acesso admin a outro usuário e tente novamente.');
+            }
+
+            if (removeUser($user_id)) {
+                echo json_encode(array('status' => 'sucesso'));
+                exit();
+            }
+        } catch (Exception $e) {
+            echo json_encode(['status' => $e->getMessage()]);
+            exit();
+        }
+    } elseif ($opcao == 'atualizarUsuario') {
+        try {
+            session_start();
+            $my_id = $_SESSION['user_id'];
+            $qtyAdmin = 0;
+            $dataUsers = getAllUsers();
+
+            $user_id = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);
+            $nome = filter_input(INPUT_POST, 'nome');
+            $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+            $status = filter_input(INPUT_POST, 'status');
+            $nivel = filter_input(INPUT_POST, 'nivel');
+            $senha = filter_input(INPUT_POST, 'senha');
+
+            $atualizado = 0;
+            $userData = getUserById($user_id);
+
+            //atualiza somente se tiver algum dado novo
+            if (!empty($nome) && $userData['nome'] !== $nome) {
+                updateUserByField($user_id, 'nome', $nome);
+                $atualizado++;
+            }
+            if (!empty($email) && $userData['email'] !== $email) {
+                updateUserByField($user_id, 'email', $email);
+                $atualizado++;
+            }
+            if (!empty($status) && $userData['status'] !== $status) {
+                if ($user_id == $my_id) {
+                    throw new Exception('Você não pode alterar o seu próprio status.');
+                }
+                updateUserByField($user_id, 'status', $status);
+                $atualizado++;
+            }
+            foreach ($dataUsers as $user) {
+                if ($user['nivel'] == 'admin')
+                    $qtyAdmin++;
+            }
+            if (!empty($nivel && $userData['nivel'] !== $nivel)) {
+                if ($qtyAdmin == 1 && $user_id == $my_id) {
+                    throw new Exception('Conceda acesso admin a outro usuário e tente novamente.');
+                }
+                updateUserByField($user_id, 'nivel', $nivel);
+                $atualizado++;
+            }
+            if (!empty($senha)) {
+                $senhaDiff = password_verify($senha, $userData['senha']);
+            }
+
+            if (!empty($senha) && $senhaDiff == false) {
+                $hash_senha = password_hash($senha, PASSWORD_DEFAULT);
+                updateUserByField($user_id, 'senha', $hash_senha);
+                $atualizado++;
+            }
+
+            echo json_encode(array('status' => 'sucesso'));
+            exit();
+
         } catch (Exception $e) {
             echo json_encode(['status' => $e->getMessage()]);
             exit();

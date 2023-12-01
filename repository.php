@@ -17,12 +17,49 @@ function getUserByEmail(string $email)
         return null;
     }
 }
+
 function addUser(array $data)
 {
     global $conn;
     $query = 'INSERT INTO users (nome, email, senha) VALUES (?,?,?);';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('sss', $data['nome'], $data['email'], $data['senha']);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
+function removeUser(int $user_id)
+{
+
+    global $conn;
+
+    // Remove todos os seus itens e listas
+    $dataLista = getAllListByIdUser($user_id);
+    if ($dataLista !== null) {
+        foreach ($dataLista as $lista) {
+            $dataItens = getAllItemByListId($lista['id']);
+            if ($dataItens !== null) {
+                foreach ($dataItens as $item) {
+                    removeItem($item['id']);
+                }
+            }
+            deleteListById($lista['id']);
+        }
+    }
+
+    // Remove todos os seus compromissos
+    $dataCompromisso = getAllCompromissoByIdUser($user_id);
+    if ($dataCompromisso !== null) {
+        foreach ($dataCompromisso as $compromisso) {
+            removeCompromisso($compromisso['id']);
+        }
+    }
+
+    // Remove o usuário
+    $query = 'DELETE FROM users WHERE id = ?';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $user_id);
     $result = $stmt->execute();
     $stmt->close();
     return $result;
@@ -39,33 +76,30 @@ function addLista(array $data)
     return $result;
 }
 
-function updateUser(int $user_id, array $data)
+function getAllUsers()
 {
     global $conn;
-
-    if (empty($data['foto_perfil'])) {
-        $query = "UPDATE users SET nome = ?, email = ?, senha = ? WHERE id = ?";
-        $stmt = $conn->prepare($query);
-
-        $stmt->bind_param('sssi', $data['nome'], $data['email'], $data['senha'], $user_id);
+    $query = 'SELECT * FROM users ORDER BY created_at ASC';
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $data;
     } else {
-        $query = "UPDATE users SET nome = ?, email = ?, senha = ?, foto_perfil = ? WHERE id = ?";
-        $stmt = $conn->prepare($query);
-
-        $stmt->bind_param('ssssi', $data['nome'], $data['email'], $data['senha'], $data['foto_perfil'], $user_id);
+        $stmt->close();
+        return null;
     }
-
-    $result = $stmt->execute();
-    $stmt->close();
-    return $result;
 }
+
 function updateUserByField(int $user_id, string $field, string $value)
 {
     global $conn;
     $query = "UPDATE users SET $field = ? WHERE id = ?";
     $stmt = $conn->prepare($query);
 
-    $stmt->bind_param('si', $value,$user_id);
+    $stmt->bind_param('si', $value, $user_id);
     $result = $stmt->execute();
     $stmt->close();
     return $result;
@@ -189,7 +223,7 @@ function tornarPendenteItem(int $item_id)
     return $result;
 }
 
-function exluirItem(int $item_id)
+function removeItem(int $item_id)
 {
     global $conn;
     $query = 'DELETE FROM itens WHERE id = ?';
@@ -216,7 +250,7 @@ function deleteListById(int $lista_id)
     $allItens = getAllItemByListId($lista_id);
     if ($allItens !== null) {
         foreach ($allItens as $item) {
-            exluirItem($item['id']);
+            removeItem($item['id']);
         }
     }
     $allItens = getAllItemByListId($lista_id);
